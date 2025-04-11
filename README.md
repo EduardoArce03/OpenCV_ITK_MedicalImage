@@ -132,38 +132,6 @@ target_link_libraries(MiApp
 )
 ```
 
-### 📄 `main.cpp` (resumen):
-
-```cpp
-#include <opencv2/opencv.hpp>
-#include <ITKBridgeOpenCV/itkOpenCVImageBridge.h>
-#include <itkImage.h>
-#include <iostream>
-
-int main() {
-    cv::Mat cvImage = cv::imread("test.jpg", cv::IMREAD_GRAYSCALE);
-    if (cvImage.empty()) return 1;
-
-    using ImageType = itk::Image<unsigned char, 2>;
-    auto itkImage = itk::OpenCVImageBridge::CVMatToITKImage<ImageType>(cvImage);
-    auto backToCV = itk::OpenCVImageBridge::ITKImageToCVMat<ImageType>(itkImage);
-
-    // CUDA: aplicar filtro Gaussiano
-    cv::cuda::GpuMat gpuImage;
-    gpuImage.upload(backToCV);
-    cv::cuda::GpuMat gpuBlurred;
-    cv::cuda::GaussianBlur(gpuImage, gpuBlurred, cv::Size(15,15), 0);
-
-    cv::Mat result;
-    gpuBlurred.download(result);
-    cv::imshow("CUDA Blur", result);
-    cv::waitKey(0);
-    return 0;
-}
-```
-
----
-
 ## ✅ Paso 5: Compilar el proyecto
 
 ```bash
@@ -186,5 +154,6 @@ make -j$(nproc)
 ---
 
 ## ✨ Créditos
-
+Eduardo Arce - UPS 2025
+CompuInside
 Esta guía fue armada con sudor, código y siuuu 🐐
