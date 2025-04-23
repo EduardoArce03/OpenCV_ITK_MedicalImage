@@ -24,9 +24,24 @@ cd ~/opencv_cuda/opencv
 mkdir build && cd build
 
 cmake .. \
-  -DWITH_CUDA=ON \
   -DCMAKE_BUILD_TYPE=Release \
-  -DCMAKE_INSTALL_PREFIX=/usr/local
+  -DCMAKE_INSTALL_PREFIX=/usr/local \
+  -DWITH_CUDA=ON \
+  -DWITH_CUDNN=OFF \
+  -DOPENCV_DNN_CUDA=ON \
+  -DCUDA_ARCH_BIN=86 \
+  -DCUDA_ARCH_PTX= \
+  -DWITH_TBB=ON \
+  -DWITH_OPENGL=ON \
+  -DBUILD_EXAMPLES=OFF \
+  -DWITH_GTK=ON \
+  -DOPENCV_ENABLE_NONFREE=ON \
+  -DOPENCV_EXTRA_MODULES_PATH=~/opencv_cuda/opencv_contrib/modules
+```
+
+ Ajusta `CUDA_ARCH_BIN=86` según tu GPU (por ejemplo: 75 = GTX 1660, 89 = RTX 40xx). eso se ve en
+ la pagina de nvidia, IMPORTANTISIMO
+
 
 make -j$(nproc)
 sudo make install
