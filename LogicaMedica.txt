@@ -10,11 +10,33 @@ que se aplica ecualización de histograma como técnica de realce visual
 Se ajusta a nuestra implementacion de imagenes cerebrales: El algoritmo FIPSO se utiliza para obtener imágenes de contraste
 mínimo en imágenes cerebrales por resonancia magnética.
 
+2. Three-dimensional visualization of brain tumor progression based accurate segmentation via comparative holographic projection
+Fuente: https://pmc.ncbi.nlm.nih.gov/articles/PMC7392220/
+
+"Se aplicaron operaciones morfológicas por erosión y dilatación para eliminar los límites del cráneo y el ruido extra causado por
+la segmentación." ---- Sirve para justificar el uso de las operaciones/metodos de opencv; "dilate", "erode" que sirven para limpiar
+bordes, suavizar la segmentación, o aumentar ligeramente el volumen de la máscara para mejor visualización.
+
+"El detector de bordes Canny es el método más potente que puede detectar bordes verdaderos sin ser engañado por el ruido."
+---- Sirve para la implementacion de la operacion/metodo "Canny". Se puede aplicar sobre el slice original o sobre la
+máscara binaria para visualizar claramente los bordes del tumor (se defina cuando se observe que da mejores resultados).
+
+En caso de que se vaya a hacer una doble segmentacion, es decir, una segmentacion adicional SOBRE LA IMAGEN YA SEGMENTADA,
+se puede implementar Segmentación basada en intensidad + clustering: “...thresholding, k-means, fuzzy c-means...”
+
+ADICIONAL:
+
+Este articulo menciona la superposición de la segmentación sobre la imagen original permite al especialista identificar
+rápidamente las zonas de interés sin perder contexto anatómico, en línea con el principio visual propuesto por Hamza et al.
+(2020) mediante reconstrucción óptica compuesta.
+
+Ideal para alcanzar el objetivo de una area coloreada sobre la imagen original. Usando el metodo addWeight de opencv
+
 TECNICAS POR REVISAR Y VALIDAR:
 
-Justificar ecualización de histograma	"histogram equalization brain MRI"  |CHECK|
-Justificar colorización de regiones	"color-based visualization brain tumor segmentation"
-Explicar operaciones morfológicas	"morphological filters brain MRI tumor"
-Describir regiones tumorales en segmentación	"brain tumor MRI segmentation regions edema necrosis"
-Preprocesamiento para mejorar contraste	"contrast enhancement brain MRI preprocessing"
-Detección de bordes en resonancia	"edge detection glioma MRI"
+1. Justificar ecualización de histograma	"histogram equalization brain MRI"  |CHECK|
+2. Justificar colorización de regiones	"color-based visualization brain tumor segmentation"
+3. Explicar operaciones morfológicas	"morphological filters brain MRI tumor"
+4. Describir regiones tumorales en segmentación	"brain tumor MRI segmentation regions edema necrosis"
+5. Preprocesamiento para mejorar contraste	"contrast enhancement brain MRI preprocessing"
+6. Detección de bordes en resonancia	"edge detection glioma MRI"
