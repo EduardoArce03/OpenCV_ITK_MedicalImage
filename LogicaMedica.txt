@@ -1,0 +1,20 @@
+-----------Logica Medica detras de cada proceso a seguir durante la implementacion del proyecto-----------
+
+1. Equalizacion de histograma dinamico para mejora del contraste de imagenes digitales.
+Fuente: https://www.sciencedirect.com/science/article/abs/pii/S1568494620300545
+
+Justificacion de tecnica: Se requiere mejorar el contraste de las imágenes de resonancia magnética, ya que las regiones
+tumorales pueden presentar intensidades similares al tejido sano.  Esto dificulta su interpretación clínica, por lo
+que se aplica ecualización de histograma como técnica de realce visual
+
+Se ajusta a nuestra implementacion de imagenes cerebrales: El algoritmo FIPSO se utiliza para obtener imágenes de contraste
+mínimo en imágenes cerebrales por resonancia magnética.
+
+TECNICAS POR REVISAR Y VALIDAR:
+
+Justificar ecualización de histograma	"histogram equalization brain MRI"  |CHECK|
+Justificar colorización de regiones	"color-based visualization brain tumor segmentation"
+Explicar operaciones morfológicas	"morphological filters brain MRI tumor"
+Describir regiones tumorales en segmentación	"brain tumor MRI segmentation regions edema necrosis"
+Preprocesamiento para mejorar contraste	"contrast enhancement brain MRI preprocessing"
+Detección de bordes en resonancia	"edge detection glioma MRI"
