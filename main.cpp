@@ -8,55 +8,33 @@
 #include "itkRescaleIntensityImageFilter.h"
 #include "itkCastImageFilter.h"
 #include <ITKBridgeOpenCV/itkOpenCVImageBridge.h>
+#include "image_utils.h"
 
 int main() {
-    std::string rutaImagen = "/home/eduardo/Documents/Vision/test/test.jpg";
+    using ImageType3D = itk::Image<float, 3>;
+    auto reader = itk::ImageFileReader<ImageType3D>::New();
+    reader->SetFileName("../data/images/BRATS_001.nii"); // o .nii.gz si aplica
+    reader->Update();
+    auto volume = reader->GetOutput();
 
-    // 🔹 1. Cargar imagen con OpenCV
-    cv::Mat cvImage = cv::imread(rutaImagen, cv::IMREAD_COLOR);
-    if (cvImage.empty()) {
-        cv::cuda::GpuMat gpuImage;
-        std::cerr << "Error: no se pudo abrir la imagen con OpenCV." << std::endl;
-        return -1;
-    }
-    cv::imshow("Original - OpenCV", cvImage);
+    // 👉 Extraer slice 50
+    auto slice = ExtractSlice(volume, 50);
 
-    // 🔹 2. Leer la imagen con ITK (en escala de grises)
-    using InputPixelType = unsigned char;
-    constexpr unsigned int Dimension = 2;
-    using InputImageType = itk::Image<InputPixelType, Dimension>;
-    using ReaderType = itk::ImageFileReader<InputImageType>;
+    // 👉 Convertir a cv::Mat
+    cv::Mat sliceMat = ITKToMat(slice);
 
-    ReaderType::Pointer reader = ReaderType::New();
-    reader->SetFileName(rutaImagen);
+    // 👉 Mostrar la imagen
+    cv::Mat display;
+    sliceMat.convertTo(display, CV_8U, 255.0); // Escalado
 
-    try {
-        reader->Update();
-    } catch (itk::ExceptionObject &error) {
-        std::cerr << "Error al leer la imagen con ITK: " << error << std::endl;
-        return -1;
-    }
+    // Mostrar versión cruda normalizada a 0-255
+    cv::imshow("Slice Escalado", display);
 
-    // 🔹 3. Procesar con ITK - rescalar intensidad a 0-255
-    using RescaleFilterType = itk::RescaleIntensityImageFilter<InputImageType, InputImageType>;
-    RescaleFilterType::Pointer rescaleFilter = RescaleFilterType::New();
-    rescaleFilter->SetInput(reader->GetOutput());
-    rescaleFilter->SetOutputMinimum(0);
-    rescaleFilter->SetOutputMaximum(255);
+    // Mostrar la original normalizada manualmente a [0,1] para que se vea algo
+    cv::Mat normalizedOriginal;
+    cv::normalize(sliceMat, normalizedOriginal, 0, 1, cv::NORM_MINMAX);
+    cv::imshow("Slice Original Normalizado", normalizedOriginal);
 
-    try {
-        rescaleFilter->Update();
-    } catch (itk::ExceptionObject &error) {
-        std::cerr << "Error al aplicar filtro ITK: " << error << std::endl;
-        return -1;
-    }
-
-    // 🔹 4. Convertir imagen ITK → OpenCV
-    cv::Mat itkToCvImage = itk::OpenCVImageBridge::ITKImageToCVMat<InputImageType>(rescaleFilter->GetOutput());
-
-    // 🔹 5. Mostrar resultado de ITK con OpenCV
-    cv::imshow("Procesada con ITK - OpenCV", itkToCvImage);
     cv::waitKey(0);
 
-    return 0;
 }
