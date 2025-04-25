@@ -1,32 +1,30 @@
 cmake_minimum_required(VERSION 3.16)
 project(MiProyectoITKOpenCV)
 
-# Requiere C++17 o superior
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Buscar ITK (sin componentes específicos)
+find_package(OpenEXR REQUIRED)
+find_package(Iconv REQUIRED)
+
+# Eigen
+find_package(Eigen3 REQUIRED)
+
+# OpenCV
+find_package(OpenCV REQUIRED)
+
+# ITK
 find_package(ITK REQUIRED)
 include(${ITK_USE_FILE})
 
-# Buscar OpenCV
-find_package(OpenCV REQUIRED)
+# Incluir ruta personalizada del bridge OpenCV-ITK
+include_directories(/home/andres/ITKBridgeOpenCVExternal/BridgeOpenCV/include)
 
-# Crear ejecutable
-add_executable(MiApp main.cpp
-        src/image_utils.cpp
-        include/image_utils.h
-)
+include_directories(${CMAKE_SOURCE_DIR}/include)
 
-# Incluir headers del módulo ITKBridgeOpenCV manualmente
-target_include_directories(MiApp PRIVATE
-  include
-  ${OpenCV_INCLUDE_DIRS}
-  /usr/local/include/ITKBridgeOpenCV
-)
+# Crear el ejecutable
+add_executable(MiApp
+        main.cpp
+        src/image_utils.cpp)
 
-# Enlazar librerías de ITK y OpenCV
-target_link_libraries(MiApp
-  ${ITK_LIBRARIES}
-  ${OpenCV_LIBS}
-)
+# Vincular bibliotecas
+target_link_libraries(MiApp ${OpenCV_LIBS} ${ITK_LIBRARIES})

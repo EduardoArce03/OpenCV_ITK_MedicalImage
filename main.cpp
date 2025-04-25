@@ -7,7 +7,7 @@
 #include "itkImageFileReader.h"
 #include "itkRescaleIntensityImageFilter.h"
 #include "itkCastImageFilter.h"
-#include <ITKBridgeOpenCV/itkOpenCVImageBridge.h>
+#include <itkOpenCVImageBridge.h>
 #include "image_utils.h"
 
 int main() {
