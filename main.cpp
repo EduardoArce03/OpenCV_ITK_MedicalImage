@@ -11,9 +11,10 @@
 #include "image_utils.h"
 
 int main() {
+
     using ImageType3D = itk::Image<float, 3>;
     auto reader = itk::ImageFileReader<ImageType3D>::New();
-    reader->SetFileName("../data/images/BRATS_001.nii"); // o .nii.gz si aplica
+    reader->SetFileName("../data/images/BRATS_001.nii");
     reader->Update();
     auto volume = reader->GetOutput();
 
@@ -25,16 +26,32 @@ int main() {
 
     // 👉 Mostrar la imagen
     cv::Mat display;
-    sliceMat.convertTo(display, CV_8U, 255.0); // Escalado
+    sliceMat.convertTo(display, CV_8U, 255.0); // Escalado de [0,1] a [0,255]
 
-    // Mostrar versión cruda normalizada a 0-255
     cv::imshow("Slice Escalado", display);
 
-    // Mostrar la original normalizada manualmente a [0,1] para que se vea algo
+    // Normalización para visualizar original
     cv::Mat normalizedOriginal;
     cv::normalize(sliceMat, normalizedOriginal, 0, 1, cv::NORM_MINMAX);
     cv::imshow("Slice Original Normalizado", normalizedOriginal);
 
     cv::waitKey(0);
 
+    /* PRUEBA DE PRIMERAS TECNICAS */
+    // Ecualización global
+    cv::Mat equalized;
+    cv::equalizeHist(display, equalized);
+    cv::imshow("Equalized Slice", equalized);
+    cv::waitKey(0);
+
+    // Ecualización adaptativa (CLAHE)
+    cv::Ptr<cv::CLAHE> clahe = cv::createCLAHE();
+    clahe->setClipLimit(2.0);
+    cv::Mat claheEqualized;
+    clahe->apply(display, claheEqualized);
+
+    cv::imshow("CLAHE Slice", claheEqualized);
+    cv::waitKey(0);
+
+    return 0;
 }

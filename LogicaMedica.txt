@@ -10,7 +10,26 @@ que se aplica ecualización de histograma como técnica de realce visual
 Se ajusta a nuestra implementacion de imagenes cerebrales: El algoritmo FIPSO se utiliza para obtener imágenes de contraste
 mínimo en imágenes cerebrales por resonancia magnética.
 
-2. Three-dimensional visualization of brain tumor progression based accurate segmentation via comparative holographic projection
+2. Visualización tridimensional de la progresión tumoral con segmentación precisa y proyección holográfica comparativa
+
+Operaciones Morfológicas Avanzadas (Top-hat y Black-hat)
+
+Justificación técnica:
+En imágenes de resonancia magnética cerebral, los tumores pueden presentar variaciones locales de intensidad, apareciendo como zonas más brillantes (hiperintensas) o más oscuras (hipointensas) respecto al tejido sano.
+Las operaciones morfológicas Top-hat y Black-hat permiten realzar estructuras de interés que no se destacan suficientemente mediante preprocesamientos convencionales.
+
+    La transformación Top-hat ayuda a resaltar pequeñas regiones brillantes que podrían corresponder a lesiones, bordes tumorales o microedemas.
+
+    La transformación Black-hat enfatiza zonas oscuras, como necrosis tumoral o cavidades internas.
+
+Relación con nuestro proyecto:
+Aplicar Top-hat y Black-hat previo o posterior a la segmentación permitirá mejorar la visualización y extracción de características en las imágenes cerebrales, optimizando la detección automática de tumores y su posterior análisis.
+
+Referencia complementaria (puedes citar algo como):
+
+    González & Woods, "Digital Image Processing", donde se discuten operaciones morfológicas aplicadas a realce de estructuras específicas.
+
+3. Three-dimensional visualization of brain tumor progression based accurate segmentation via comparative holographic projection
 Fuente: https://pmc.ncbi.nlm.nih.gov/articles/PMC7392220/
 
 "Se aplicaron operaciones morfológicas por erosión y dilatación para eliminar los límites del cráneo y el ruido extra causado por
