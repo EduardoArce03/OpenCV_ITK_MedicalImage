@@ -23,8 +23,8 @@ include_directories(${CMAKE_SOURCE_DIR}/include)
 
 # Crear el ejecutable
 add_executable(MiApp
-        main.cpp
-        src/image_utils.cpp)
+        src/main.cpp
+        src/image_processing.cpp)
 
 # Vincular bibliotecas
 target_link_libraries(MiApp ${OpenCV_LIBS} ${ITK_LIBRARIES})

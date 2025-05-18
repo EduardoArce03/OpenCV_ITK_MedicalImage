@@ -134,16 +134,16 @@ include(${ITK_USE_FILE})
 
 find_package(OpenCV REQUIRED)
 
-add_executable(MiApp main.cpp)
+add_executable(MiApp src/main.cpp)
 
 target_include_directories(MiApp PRIVATE
-  ${OpenCV_INCLUDE_DIRS}
-  /usr/local/include/ITKBridgeOpenCV
+        ${OpenCV_INCLUDE_DIRS}
+        /usr/local/include/ITKBridgeOpenCV
 )
 
 target_link_libraries(MiApp
-  ${ITK_LIBRARIES}
-  ${OpenCV_LIBS}
+        ${ITK_LIBRARIES}
+        ${OpenCV_LIBS}
 )
 ```
 
