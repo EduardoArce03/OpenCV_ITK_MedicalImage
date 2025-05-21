@@ -13,7 +13,7 @@
 int main() {
     using ImageType3D = itk::Image<float, 3>;
     auto reader = itk::ImageFileReader<ImageType3D>::New();
-    reader->SetFileName("../data/images/BRATS_001.nii"); // o .nii.gz si aplica
+    reader->SetFileName("../data/images/test.nii"); // o .nii.gz si aplica
     reader->Update();
     auto volume = reader->GetOutput();
 
