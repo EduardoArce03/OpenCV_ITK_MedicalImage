@@ -1,0 +1,1078 @@
+MiApp: \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/Scrt1.o \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/crti.o \
+  /usr/lib/gcc/x86_64-linux-gnu/13/crtbeginS.o \
+  CMakeFiles/MiApp.dir/MiApp_autogen/mocs_compilation.cpp.o \
+  CMakeFiles/MiApp.dir/gui/main.cpp.o \
+  CMakeFiles/MiApp.dir/gui/mainwindow.cpp.o \
+  CMakeFiles/MiApp.dir/src/image_utils.cpp.o \
+  CMakeFiles/MiApp.dir/src/image_processing.cpp.o \
+  /usr/local/lib/libopencv_calib3d.a \
+  /usr/local/lib/libopencv_core.a \
+  /usr/local/lib/libopencv_dnn.a \
+  /usr/local/lib/libopencv_features2d.a \
+  /usr/local/lib/libopencv_flann.a \
+  /usr/local/lib/libopencv_gapi.a \
+  /usr/local/lib/libopencv_highgui.a \
+  /usr/local/lib/libopencv_imgcodecs.a \
+  /usr/local/lib/libopencv_imgproc.a \
+  /usr/local/lib/libopencv_ml.a \
+  /usr/local/lib/libopencv_objdetect.a \
+  /usr/local/lib/libopencv_photo.a \
+  /usr/local/lib/libopencv_stitching.a \
+  /usr/local/lib/libopencv_video.a \
+  /usr/local/lib/libopencv_videoio.a \
+  /usr/local/lib/libopencv_alphamat.a \
+  /usr/local/lib/libopencv_aruco.a \
+  /usr/local/lib/libopencv_bgsegm.a \
+  /usr/local/lib/libopencv_bioinspired.a \
+  /usr/local/lib/libopencv_ccalib.a \
+  /usr/local/lib/libopencv_datasets.a \
+  /usr/local/lib/libopencv_dnn_objdetect.a \
+  /usr/local/lib/libopencv_dnn_superres.a \
+  /usr/local/lib/libopencv_dpm.a \
+  /usr/local/lib/libopencv_face.a \
+  /usr/local/lib/libopencv_freetype.a \
+  /usr/local/lib/libopencv_fuzzy.a \
+  /usr/local/lib/libopencv_hfs.a \
+  /usr/local/lib/libopencv_img_hash.a \
+  /usr/local/lib/libopencv_intensity_transform.a \
+  /usr/local/lib/libopencv_line_descriptor.a \
+  /usr/local/lib/libopencv_mcc.a \
+  /usr/local/lib/libopencv_optflow.a \
+  /usr/local/lib/libopencv_phase_unwrapping.a \
+  /usr/local/lib/libopencv_plot.a \
+  /usr/local/lib/libopencv_quality.a \
+  /usr/local/lib/libopencv_rapid.a \
+  /usr/local/lib/libopencv_reg.a \
+  /usr/local/lib/libopencv_rgbd.a \
+  /usr/local/lib/libopencv_saliency.a \
+  /usr/local/lib/libopencv_shape.a \
+  /usr/local/lib/libopencv_signal.a \
+  /usr/local/lib/libopencv_stereo.a \
+  /usr/local/lib/libopencv_structured_light.a \
+  /usr/local/lib/libopencv_superres.a \
+  /usr/local/lib/libopencv_surface_matching.a \
+  /usr/local/lib/libopencv_text.a \
+  /usr/local/lib/libopencv_tracking.a \
+  /usr/local/lib/libopencv_videostab.a \
+  /usr/local/lib/libopencv_wechat_qrcode.a \
+  /usr/local/lib/libopencv_xfeatures2d.a \
+  /usr/local/lib/libopencv_ximgproc.a \
+  /usr/local/lib/libopencv_xobjdetect.a \
+  /usr/local/lib/libopencv_xphoto.a \
+  /usr/local/lib/libitkdouble-conversion-6.0.a \
+  /usr/local/lib/libitksys-6.0.a \
+  /usr/local/lib/libitkvnl_algo-6.0.a \
+  /usr/local/lib/libitkvnl-6.0.a \
+  /usr/local/lib/libitkv3p_netlib-6.0.a \
+  /usr/local/lib/libitkvcl-6.0.a \
+  /usr/local/lib/libITKCommon-6.0.a \
+  /usr/local/lib/libitkNetlibSlatec-6.0.a \
+  /usr/local/lib/libITKStatistics-6.0.a \
+  /usr/local/lib/libITKTransform-6.0.a \
+  /usr/local/lib/libITKMesh-6.0.a \
+  /usr/local/lib/libitkzlib-6.0.a \
+  /usr/local/lib/libITKMetaIO-6.0.a \
+  /usr/local/lib/libITKSpatialObjects-6.0.a \
+  /usr/local/lib/libITKPath-6.0.a \
+  /usr/local/lib/libITKLabelMap-6.0.a \
+  /usr/local/lib/libITKMathematicalMorphology-6.0.a \
+  /usr/local/lib/libITKQuadEdgeMesh-6.0.a \
+  /usr/local/lib/libITKFastMarching-6.0.a \
+  /usr/local/lib/libITKIOImageBase-6.0.a \
+  /usr/local/lib/libITKFFT-6.0.a \
+  /usr/local/lib/libITKConvolution-6.0.a \
+  /usr/local/lib/libITKSmoothing-6.0.a \
+  /usr/local/lib/libITKImageFeature-6.0.a \
+  /usr/local/lib/libITKOptimizers-6.0.a \
+  /usr/local/lib/libITKPolynomials-6.0.a \
+  /usr/local/lib/libITKBiasCorrection-6.0.a \
+  /usr/local/lib/libITKColormap-6.0.a \
+  /usr/local/lib/libITKDICOMParser-6.0.a \
+  /usr/local/lib/libITKDeformableMesh-6.0.a \
+  /usr/local/lib/libITKDenoising-6.0.a \
+  /usr/local/lib/libITKDiffusionTensorImage-6.0.a \
+  /usr/local/lib/libITKEXPAT-6.0.a \
+  /usr/local/lib/libitkopenjpeg-6.0.a \
+  /usr/local/lib/libitkgdcmDICT-6.0.a \
+  /usr/local/lib/libitkgdcmMSFF-6.0.a \
+  /usr/local/lib/libITKznz-5.0.a \
+  /usr/local/lib/libITKniftiio-5.0.a \
+  /usr/local/lib/libITKgiftiio-5.0.a \
+  /usr/local/lib/libITKPDEDeformableRegistration-6.0.a \
+  /usr/local/lib/libitkhdf5_cpp.a \
+  /usr/local/lib/libitkhdf5.a \
+  /usr/local/lib/libitkhdf5_hl.a \
+  /usr/local/lib/libITKIOBMP-6.0.a \
+  /usr/local/lib/libITKIOBioRad-6.0.a \
+  /usr/local/lib/libITKIOBruker-6.0.a \
+  /usr/local/lib/libITKIOCSV-6.0.a \
+  /usr/local/lib/libITKIOGDCM-6.0.a \
+  /usr/local/lib/libITKIOIPL-6.0.a \
+  /usr/local/lib/libITKIOGE-6.0.a \
+  /usr/local/lib/libITKIOGIPL-6.0.a \
+  /usr/local/lib/libITKIOHDF5-6.0.a \
+  /usr/local/lib/libitkjpeg-6.0.a \
+  /usr/local/lib/libITKIOJPEG-6.0.a \
+  /usr/local/lib/libITKIOJPEG2000-6.0.a \
+  /usr/local/lib/libitktiff-6.0.a \
+  /usr/local/lib/libITKIOTIFF-6.0.a \
+  /usr/local/lib/libITKIOLSM-6.0.a \
+  /usr/local/lib/libitkminc2-6.0.a \
+  /usr/local/lib/libITKIOMINC-6.0.a \
+  /usr/local/lib/libITKIOMRC-6.0.a \
+  /usr/local/lib/libITKIOMeshBase-6.0.a \
+  /usr/local/lib/libITKIOMeshBYU-6.0.a \
+  /usr/local/lib/libITKIOMeshFreeSurfer-6.0.a \
+  /usr/local/lib/libITKIOMeshGifti-6.0.a \
+  /usr/local/lib/libITKIOMeshOBJ-6.0.a \
+  /usr/local/lib/libITKIOMeshOFF-6.0.a \
+  /usr/local/lib/libITKIOMeshVTK-6.0.a \
+  /usr/local/lib/libITKIOMeta-6.0.a \
+  /usr/local/lib/libITKIONIFTI-6.0.a \
+  /usr/local/lib/libITKNrrdIO-6.0.a \
+  /usr/local/lib/libITKIONRRD-6.0.a \
+  /usr/local/lib/libitkpng-6.0.a \
+  /usr/local/lib/libITKIOPNG-6.0.a \
+  /usr/local/lib/libITKIOSiemens-6.0.a \
+  /usr/local/lib/libITKIOXML-6.0.a \
+  /usr/local/lib/libITKIOSpatialObjects-6.0.a \
+  /usr/local/lib/libITKIOStimulate-6.0.a \
+  /usr/local/lib/libITKTransformFactory-6.0.a \
+  /usr/local/lib/libITKIOTransformBase-6.0.a \
+  /usr/local/lib/libITKIOTransformHDF5-6.0.a \
+  /usr/local/lib/libITKIOTransformInsightLegacy-6.0.a \
+  /usr/local/lib/libITKIOTransformMatlab-6.0.a \
+  /usr/local/lib/libITKIOVTK-6.0.a \
+  /usr/local/lib/libITKKLMRegionGrowing-6.0.a \
+  /usr/local/lib/libitklbfgs-6.0.a \
+  /usr/local/lib/libITKMarkovRandomFieldsClassifiers-6.0.a \
+  /usr/local/lib/libITKOptimizersv4-6.0.a \
+  /usr/local/lib/libITKQuadEdgeMeshFiltering-6.0.a \
+  /usr/local/lib/libITKRegionGrowing-6.0.a \
+  /usr/local/lib/libITKRegistrationMethodsv4-6.0.a \
+  /usr/local/lib/libITKTestKernel-6.0.a \
+  /usr/local/lib/libITKVTK-6.0.a \
+  /usr/local/lib/libITKVideoCore-6.0.a \
+  /usr/local/lib/libITKVideoIO-6.0.a \
+  /usr/local/lib/libITKWatersheds-6.0.a \
+  /usr/lib/x86_64-linux-gnu/libQt5Widgets.so.5.15.13 \
+  /usr/local/lib/opencv4/3rdparty/libade.a \
+  /usr/local/lib/libopencv_shape.a \
+  /usr/local/lib/libopencv_highgui.a \
+  /usr/lib/x86_64-linux-gnu/libgtk-x11-2.0.so \
+  /usr/lib/x86_64-linux-gnu/libgdk-x11-2.0.so \
+  /usr/lib/x86_64-linux-gnu/libpangocairo-1.0.so \
+  /usr/lib/x86_64-linux-gnu/libatk-1.0.so \
+  /usr/lib/x86_64-linux-gnu/libcairo.so \
+  /usr/lib/x86_64-linux-gnu/libgdk_pixbuf-2.0.so \
+  /usr/lib/x86_64-linux-gnu/libgio-2.0.so \
+  /usr/lib/x86_64-linux-gnu/libpangoft2-1.0.so \
+  /usr/lib/x86_64-linux-gnu/libpango-1.0.so \
+  /usr/lib/x86_64-linux-gnu/libgobject-2.0.so \
+  /usr/lib/x86_64-linux-gnu/libglib-2.0.so \
+  /usr/lib/x86_64-linux-gnu/libharfbuzz.so \
+  /usr/lib/x86_64-linux-gnu/libfontconfig.so \
+  /usr/lib/x86_64-linux-gnu/libfreetype.so \
+  /usr/local/lib/libopencv_datasets.a \
+  /usr/local/lib/libopencv_plot.a \
+  /usr/local/lib/libopencv_text.a \
+  /usr/local/lib/libopencv_ml.a \
+  /usr/local/lib/libopencv_phase_unwrapping.a \
+  /usr/local/lib/libopencv_optflow.a \
+  /usr/local/lib/libopencv_ximgproc.a \
+  /usr/local/lib/libopencv_video.a \
+  /usr/local/lib/libopencv_videoio.a \
+  /usr/lib/x86_64-linux-gnu/libavcodec.so \
+  /usr/lib/x86_64-linux-gnu/libavformat.so \
+  /usr/lib/x86_64-linux-gnu/libavutil.so \
+  /usr/lib/x86_64-linux-gnu/libswscale.so \
+  /usr/local/lib/libopencv_imgcodecs.a \
+  /usr/lib/x86_64-linux-gnu/libjpeg.so \
+  /usr/lib/x86_64-linux-gnu/libwebp.so \
+  /usr/lib/x86_64-linux-gnu/libwebpmux.so \
+  /usr/lib/x86_64-linux-gnu/libwebpdemux.so \
+  /usr/lib/x86_64-linux-gnu/libpng.so \
+  /usr/lib/x86_64-linux-gnu/libtiff.so \
+  /usr/local/lib/opencv4/3rdparty/liblibopenjp2.a \
+  /usr/lib/x86_64-linux-gnu/libOpenEXR-3_1.so.30.5.1 \
+  /usr/lib/x86_64-linux-gnu/libImath-3_1.so.29.8.0 \
+  /usr/lib/x86_64-linux-gnu/libIlmThread-3_1.so.30.5.1 \
+  /usr/lib/x86_64-linux-gnu/libIex-3_1.so.30.5.1 \
+  /usr/lib/x86_64-linux-gnu/libz.so \
+  /usr/local/lib/libopencv_objdetect.a \
+  /usr/local/lib/libopencv_calib3d.a \
+  /usr/local/lib/libopencv_dnn.a \
+  /usr/local/lib/opencv4/3rdparty/liblibprotobuf.a \
+  /usr/local/lib/libopencv_features2d.a \
+  /usr/local/lib/libopencv_flann.a \
+  /usr/local/lib/libopencv_photo.a \
+  /usr/local/lib/libopencv_imgproc.a \
+  /usr/local/lib/libopencv_core.a \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/libtbb.so \
+  /usr/lib/x86_64-linux-gnu/libz.so \
+  /usr/local/lib/opencv4/3rdparty/libittnotify.a \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/libpthread.a \
+  /usr/local/lib/opencv4/3rdparty/libipphal.a \
+  /usr/local/lib/opencv4/3rdparty/libippiw.a \
+  /usr/local/lib/opencv4/3rdparty/libippicv.a \
+  /usr/local/lib/libitkminc2-6.0.a \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/librt.a \
+  /usr/local/lib/libITKIOIPL-6.0.a \
+  /usr/local/lib/libITKIOXML-6.0.a \
+  /usr/local/lib/libitkhdf5_cpp.a \
+  /usr/local/lib/libitkhdf5_hl.a \
+  /usr/local/lib/libitkhdf5.a \
+  /usr/local/lib/libITKIOTransformBase-6.0.a \
+  /usr/local/lib/libITKTransformFactory-6.0.a \
+  /usr/local/lib/libITKImageFeature-6.0.a \
+  /usr/local/lib/libITKOptimizersv4-6.0.a \
+  /usr/local/lib/libITKOptimizers-6.0.a \
+  /usr/local/lib/libitklbfgs-6.0.a \
+  /usr/local/lib/libITKFFT-6.0.a \
+  /usr/local/lib/libITKIOBMP-6.0.a \
+  /usr/local/lib/libITKIOGDCM-6.0.a \
+  /usr/local/lib/libitkgdcmMSFF-6.0.a \
+  /usr/local/lib/libitkopenjpeg-6.0.a \
+  /usr/local/lib/libitkgdcmDICT-6.0.a \
+  /usr/local/lib/libitkgdcmIOD-6.0.a \
+  /usr/local/lib/libitkgdcmDSED-6.0.a \
+  /usr/local/lib/libitkgdcmCommon-6.0.a \
+  /usr/local/lib/libitkgdcmjpeg8-6.0.a \
+  /usr/local/lib/libitkgdcmjpeg12-6.0.a \
+  /usr/local/lib/libitkgdcmjpeg16-6.0.a \
+  /usr/local/lib/libitkgdcmcharls-6.0.a \
+  /usr/local/lib/libitkgdcmuuid-6.0.a \
+  /usr/local/lib/libITKIOGIPL-6.0.a \
+  /usr/local/lib/libITKIOJPEG-6.0.a \
+  /usr/local/lib/libITKIOTIFF-6.0.a \
+  /usr/local/lib/libitktiff-6.0.a \
+  /usr/local/lib/libitkjpeg-6.0.a \
+  /usr/local/lib/libITKIOMeshBYU-6.0.a \
+  /usr/local/lib/libITKIOMeshFreeSurfer-6.0.a \
+  /usr/local/lib/libITKIOMeshGifti-6.0.a \
+  /usr/local/lib/libITKgiftiio-5.0.a \
+  /usr/local/lib/libITKEXPAT-6.0.a \
+  /usr/local/lib/libITKIOMeshOBJ-6.0.a \
+  /usr/local/lib/libITKIOMeshOFF-6.0.a \
+  /usr/local/lib/libITKIOMeshVTK-6.0.a \
+  /usr/local/lib/libITKIOMeshBase-6.0.a \
+  /usr/local/lib/libITKQuadEdgeMesh-6.0.a \
+  /usr/local/lib/libITKIOMeta-6.0.a \
+  /usr/local/lib/libITKMetaIO-6.0.a \
+  /usr/local/lib/libITKIONIFTI-6.0.a \
+  /usr/local/lib/libITKniftiio-5.0.a \
+  /usr/local/lib/libITKznz-5.0.a \
+  /usr/local/lib/libITKIONRRD-6.0.a \
+  /usr/local/lib/libITKNrrdIO-6.0.a \
+  /usr/local/lib/libITKIOPNG-6.0.a \
+  /usr/local/lib/libitkpng-6.0.a \
+  /usr/local/lib/libitkzlib-6.0.a \
+  /usr/local/lib/libITKIOVTK-6.0.a \
+  /usr/local/lib/libITKIOImageBase-6.0.a \
+  /usr/local/lib/libITKVideoCore-6.0.a \
+  /usr/local/lib/libITKMathematicalMorphology-6.0.a \
+  /usr/local/lib/libITKStatistics-6.0.a \
+  /usr/local/lib/libitkNetlibSlatec-6.0.a \
+  /usr/local/lib/libITKSpatialObjects-6.0.a \
+  /usr/local/lib/libITKMesh-6.0.a \
+  /usr/local/lib/libITKTransform-6.0.a \
+  /usr/local/lib/libITKPath-6.0.a \
+  /usr/local/lib/libITKCommon-6.0.a \
+  /usr/local/lib/libitkdouble-conversion-6.0.a \
+  /usr/local/lib/libitksys-6.0.a \
+  /usr/local/lib/libitkvnl_algo-6.0.a \
+  /usr/local/lib/libitkvnl-6.0.a \
+  /usr/local/lib/libitkv3p_netlib-6.0.a \
+  /usr/local/lib/libitkvcl-6.0.a \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/libm.so \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/libm.so \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/libm.so \
+  /lib/x86_64-linux-gnu/libm.so.6 \
+  /lib/x86_64-linux-gnu/libmvec.so.1 \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/libm.so \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/libm.so \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/libm.so \
+  /lib/x86_64-linux-gnu/libm.so.6 \
+  /lib/x86_64-linux-gnu/libmvec.so.1 \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/libdl.a \
+  /usr/local/lib/libITKSmoothing-6.0.a \
+  /usr/lib/x86_64-linux-gnu/libQt5Gui.so.5.15.13 \
+  /usr/lib/x86_64-linux-gnu/libQt5Core.so.5.15.13 \
+  /usr/lib/gcc/x86_64-linux-gnu/13/libstdc++.so \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/libm.so \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/libm.so \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/libm.so \
+  /lib/x86_64-linux-gnu/libm.so.6 \
+  /lib/x86_64-linux-gnu/libmvec.so.1 \
+  /usr/lib/gcc/x86_64-linux-gnu/13/libgcc_s.so \
+  /usr/lib/gcc/x86_64-linux-gnu/13/libgcc_s.so \
+  /usr/lib/gcc/x86_64-linux-gnu/13/libgcc_s.so \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/libgcc_s.so.1 \
+  /usr/lib/gcc/x86_64-linux-gnu/13/libgcc.a \
+  /usr/lib/gcc/x86_64-linux-gnu/13/libgcc.a \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/libc.so \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/libc.so \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/libc.so \
+  /lib/x86_64-linux-gnu/libc.so.6 \
+  /usr/lib/x86_64-linux-gnu/libc_nonshared.a \
+  /lib64/ld-linux-x86-64.so.2 \
+  /usr/lib/gcc/x86_64-linux-gnu/13/libgcc_s.so \
+  /usr/lib/gcc/x86_64-linux-gnu/13/libgcc_s.so \
+  /usr/lib/gcc/x86_64-linux-gnu/13/libgcc_s.so \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/libgcc_s.so.1 \
+  /usr/lib/gcc/x86_64-linux-gnu/13/libgcc.a \
+  /usr/lib/gcc/x86_64-linux-gnu/13/libgcc.a \
+  /usr/lib/gcc/x86_64-linux-gnu/13/crtendS.o \
+  /usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/crtn.o \
+  /lib/x86_64-linux-gnu/libsharpyuv.so.0 \
+  /lib/x86_64-linux-gnu/libzstd.so.1 \
+  /lib/x86_64-linux-gnu/liblzma.so.5 \
+  /lib/x86_64-linux-gnu/libLerc.so.4 \
+  /lib/x86_64-linux-gnu/libjbig.so.0 \
+  /lib/x86_64-linux-gnu/libdeflate.so.0 \
+  /usr/lib/x86_64-linux-gnu/libImath-3_1.so.29.8.0 \
+  /usr/lib/x86_64-linux-gnu/libIlmThread-3_1.so.30.5.1 \
+  /usr/lib/x86_64-linux-gnu/libIex-3_1.so.30.5.1 \
+  /lib/x86_64-linux-gnu/libGL.so.1 \
+  /usr/lib/x86_64-linux-gnu/libharfbuzz.so \
+  /lib/x86_64-linux-gnu/libmd4c.so.0 \
+  /lib/x86_64-linux-gnu/libdouble-conversion.so.3 \
+  /lib/x86_64-linux-gnu/libicui18n.so.74 \
+  /lib/x86_64-linux-gnu/libicuuc.so.74 \
+  /lib/x86_64-linux-gnu/libpcre2-16.so.0 \
+  /usr/lib/x86_64-linux-gnu/libglib-2.0.so \
+  /lib/x86_64-linux-gnu/libGLdispatch.so.0 \
+  /lib/x86_64-linux-gnu/libGLX.so.0 \
+  /usr/lib/x86_64-linux-gnu/libfreetype.so \
+  /lib/x86_64-linux-gnu/libgraphite2.so.3 \
+  /lib/x86_64-linux-gnu/libicudata.so.74 \
+  /lib/x86_64-linux-gnu/libpcre2-8.so.0 \
+  /lib/x86_64-linux-gnu/libX11.so.6 \
+  /lib/x86_64-linux-gnu/libbz2.so.1.0 \
+  /lib/x86_64-linux-gnu/libbrotlidec.so.1 \
+  /lib/x86_64-linux-gnu/libxcb.so.1 \
+  /lib/x86_64-linux-gnu/libbrotlicommon.so.1 \
+  /lib/x86_64-linux-gnu/libXau.so.6 \
+  /lib/x86_64-linux-gnu/libXdmcp.so.6 \
+  /lib/x86_64-linux-gnu/libbsd.so.0 \
+  /lib/x86_64-linux-gnu/libmd.so.0
+
+/usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/Scrt1.o:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/crti.o:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/crtbeginS.o:
+
+CMakeFiles/MiApp.dir/MiApp_autogen/mocs_compilation.cpp.o:
+
+CMakeFiles/MiApp.dir/gui/main.cpp.o:
+
+CMakeFiles/MiApp.dir/gui/mainwindow.cpp.o:
+
+CMakeFiles/MiApp.dir/src/image_utils.cpp.o:
+
+CMakeFiles/MiApp.dir/src/image_processing.cpp.o:
+
+/usr/local/lib/libopencv_calib3d.a:
+
+/usr/local/lib/libopencv_core.a:
+
+/usr/local/lib/libopencv_dnn.a:
+
+/usr/local/lib/libopencv_features2d.a:
+
+/usr/local/lib/libopencv_flann.a:
+
+/usr/local/lib/libopencv_gapi.a:
+
+/usr/local/lib/libopencv_highgui.a:
+
+/usr/local/lib/libopencv_imgcodecs.a:
+
+/usr/local/lib/libopencv_imgproc.a:
+
+/usr/local/lib/libopencv_ml.a:
+
+/usr/local/lib/libopencv_objdetect.a:
+
+/usr/local/lib/libopencv_photo.a:
+
+/usr/local/lib/libopencv_stitching.a:
+
+/usr/local/lib/libopencv_video.a:
+
+/usr/local/lib/libopencv_videoio.a:
+
+/usr/local/lib/libopencv_alphamat.a:
+
+/usr/local/lib/libopencv_aruco.a:
+
+/usr/local/lib/libopencv_bgsegm.a:
+
+/usr/local/lib/libopencv_bioinspired.a:
+
+/usr/local/lib/libopencv_ccalib.a:
+
+/usr/local/lib/libopencv_datasets.a:
+
+/usr/local/lib/libopencv_dnn_objdetect.a:
+
+/usr/local/lib/libopencv_dnn_superres.a:
+
+/usr/local/lib/libopencv_dpm.a:
+
+/usr/local/lib/libopencv_face.a:
+
+/usr/local/lib/libopencv_freetype.a:
+
+/usr/local/lib/libopencv_fuzzy.a:
+
+/usr/local/lib/libopencv_hfs.a:
+
+/usr/local/lib/libopencv_img_hash.a:
+
+/usr/local/lib/libopencv_intensity_transform.a:
+
+/usr/local/lib/libopencv_line_descriptor.a:
+
+/usr/local/lib/libopencv_mcc.a:
+
+/usr/local/lib/libopencv_optflow.a:
+
+/usr/local/lib/libopencv_phase_unwrapping.a:
+
+/usr/local/lib/libopencv_plot.a:
+
+/usr/local/lib/libopencv_quality.a:
+
+/usr/local/lib/libopencv_rapid.a:
+
+/usr/local/lib/libopencv_reg.a:
+
+/usr/local/lib/libopencv_rgbd.a:
+
+/usr/local/lib/libopencv_saliency.a:
+
+/usr/local/lib/libopencv_shape.a:
+
+/usr/local/lib/libopencv_signal.a:
+
+/usr/local/lib/libopencv_stereo.a:
+
+/usr/local/lib/libopencv_structured_light.a:
+
+/usr/local/lib/libopencv_superres.a:
+
+/usr/local/lib/libopencv_surface_matching.a:
+
+/usr/local/lib/libopencv_text.a:
+
+/usr/local/lib/libopencv_tracking.a:
+
+/usr/local/lib/libopencv_videostab.a:
+
+/usr/local/lib/libopencv_wechat_qrcode.a:
+
+/usr/local/lib/libopencv_xfeatures2d.a:
+
+/usr/local/lib/libopencv_ximgproc.a:
+
+/usr/local/lib/libopencv_xobjdetect.a:
+
+/usr/local/lib/libopencv_xphoto.a:
+
+/usr/local/lib/libitkdouble-conversion-6.0.a:
+
+/usr/local/lib/libitksys-6.0.a:
+
+/usr/local/lib/libitkvnl_algo-6.0.a:
+
+/usr/local/lib/libitkvnl-6.0.a:
+
+/usr/local/lib/libitkv3p_netlib-6.0.a:
+
+/usr/local/lib/libitkvcl-6.0.a:
+
+/usr/local/lib/libITKCommon-6.0.a:
+
+/usr/local/lib/libitkNetlibSlatec-6.0.a:
+
+/usr/local/lib/libITKStatistics-6.0.a:
+
+/usr/local/lib/libITKTransform-6.0.a:
+
+/usr/local/lib/libITKMesh-6.0.a:
+
+/usr/local/lib/libitkzlib-6.0.a:
+
+/usr/local/lib/libITKMetaIO-6.0.a:
+
+/usr/local/lib/libITKSpatialObjects-6.0.a:
+
+/usr/local/lib/libITKPath-6.0.a:
+
+/usr/local/lib/libITKLabelMap-6.0.a:
+
+/usr/local/lib/libITKMathematicalMorphology-6.0.a:
+
+/usr/local/lib/libITKQuadEdgeMesh-6.0.a:
+
+/usr/local/lib/libITKFastMarching-6.0.a:
+
+/usr/local/lib/libITKIOImageBase-6.0.a:
+
+/usr/local/lib/libITKFFT-6.0.a:
+
+/usr/local/lib/libITKConvolution-6.0.a:
+
+/usr/local/lib/libITKSmoothing-6.0.a:
+
+/usr/local/lib/libITKImageFeature-6.0.a:
+
+/usr/local/lib/libITKOptimizers-6.0.a:
+
+/usr/local/lib/libITKPolynomials-6.0.a:
+
+/usr/local/lib/libITKBiasCorrection-6.0.a:
+
+/usr/local/lib/libITKColormap-6.0.a:
+
+/usr/local/lib/libITKDICOMParser-6.0.a:
+
+/usr/local/lib/libITKDeformableMesh-6.0.a:
+
+/usr/local/lib/libITKDenoising-6.0.a:
+
+/usr/local/lib/libITKDiffusionTensorImage-6.0.a:
+
+/usr/local/lib/libITKEXPAT-6.0.a:
+
+/usr/local/lib/libitkopenjpeg-6.0.a:
+
+/usr/local/lib/libitkgdcmDICT-6.0.a:
+
+/usr/local/lib/libitkgdcmMSFF-6.0.a:
+
+/usr/local/lib/libITKznz-5.0.a:
+
+/usr/local/lib/libITKniftiio-5.0.a:
+
+/usr/local/lib/libITKgiftiio-5.0.a:
+
+/usr/local/lib/libITKPDEDeformableRegistration-6.0.a:
+
+/usr/local/lib/libitkhdf5_cpp.a:
+
+/usr/local/lib/libitkhdf5.a:
+
+/usr/local/lib/libitkhdf5_hl.a:
+
+/usr/local/lib/libITKIOBMP-6.0.a:
+
+/usr/local/lib/libITKIOBioRad-6.0.a:
+
+/usr/local/lib/libITKIOBruker-6.0.a:
+
+/usr/local/lib/libITKIOCSV-6.0.a:
+
+/usr/local/lib/libITKIOGDCM-6.0.a:
+
+/usr/local/lib/libITKIOIPL-6.0.a:
+
+/usr/local/lib/libITKIOGE-6.0.a:
+
+/usr/local/lib/libITKIOGIPL-6.0.a:
+
+/usr/local/lib/libITKIOHDF5-6.0.a:
+
+/usr/local/lib/libitkjpeg-6.0.a:
+
+/usr/local/lib/libITKIOJPEG-6.0.a:
+
+/usr/local/lib/libITKIOJPEG2000-6.0.a:
+
+/usr/local/lib/libitktiff-6.0.a:
+
+/usr/local/lib/libITKIOTIFF-6.0.a:
+
+/usr/local/lib/libITKIOLSM-6.0.a:
+
+/usr/local/lib/libitkminc2-6.0.a:
+
+/usr/local/lib/libITKIOMINC-6.0.a:
+
+/usr/local/lib/libITKIOMRC-6.0.a:
+
+/usr/local/lib/libITKIOMeshBase-6.0.a:
+
+/usr/local/lib/libITKIOMeshBYU-6.0.a:
+
+/usr/local/lib/libITKIOMeshFreeSurfer-6.0.a:
+
+/usr/local/lib/libITKIOMeshGifti-6.0.a:
+
+/usr/local/lib/libITKIOMeshOBJ-6.0.a:
+
+/usr/local/lib/libITKIOMeshOFF-6.0.a:
+
+/usr/local/lib/libITKIOMeshVTK-6.0.a:
+
+/usr/local/lib/libITKIOMeta-6.0.a:
+
+/usr/local/lib/libITKIONIFTI-6.0.a:
+
+/usr/local/lib/libITKNrrdIO-6.0.a:
+
+/usr/local/lib/libITKIONRRD-6.0.a:
+
+/usr/local/lib/libitkpng-6.0.a:
+
+/usr/local/lib/libITKIOPNG-6.0.a:
+
+/usr/local/lib/libITKIOSiemens-6.0.a:
+
+/usr/local/lib/libITKIOXML-6.0.a:
+
+/usr/local/lib/libITKIOSpatialObjects-6.0.a:
+
+/usr/local/lib/libITKIOStimulate-6.0.a:
+
+/usr/local/lib/libITKTransformFactory-6.0.a:
+
+/usr/local/lib/libITKIOTransformBase-6.0.a:
+
+/usr/local/lib/libITKIOTransformHDF5-6.0.a:
+
+/usr/local/lib/libITKIOTransformInsightLegacy-6.0.a:
+
+/usr/local/lib/libITKIOTransformMatlab-6.0.a:
+
+/usr/local/lib/libITKIOVTK-6.0.a:
+
+/usr/local/lib/libITKKLMRegionGrowing-6.0.a:
+
+/usr/local/lib/libitklbfgs-6.0.a:
+
+/usr/local/lib/libITKMarkovRandomFieldsClassifiers-6.0.a:
+
+/usr/local/lib/libITKOptimizersv4-6.0.a:
+
+/usr/local/lib/libITKQuadEdgeMeshFiltering-6.0.a:
+
+/usr/local/lib/libITKRegionGrowing-6.0.a:
+
+/usr/local/lib/libITKRegistrationMethodsv4-6.0.a:
+
+/usr/local/lib/libITKTestKernel-6.0.a:
+
+/usr/local/lib/libITKVTK-6.0.a:
+
+/usr/local/lib/libITKVideoCore-6.0.a:
+
+/usr/local/lib/libITKVideoIO-6.0.a:
+
+/usr/local/lib/libITKWatersheds-6.0.a:
+
+/usr/lib/x86_64-linux-gnu/libQt5Widgets.so.5.15.13:
+
+/usr/local/lib/opencv4/3rdparty/libade.a:
+
+/usr/local/lib/libopencv_shape.a:
+
+/usr/local/lib/libopencv_highgui.a:
+
+/usr/lib/x86_64-linux-gnu/libgtk-x11-2.0.so:
+
+/usr/lib/x86_64-linux-gnu/libgdk-x11-2.0.so:
+
+/usr/lib/x86_64-linux-gnu/libpangocairo-1.0.so:
+
+/usr/lib/x86_64-linux-gnu/libatk-1.0.so:
+
+/usr/lib/x86_64-linux-gnu/libcairo.so:
+
+/usr/lib/x86_64-linux-gnu/libgdk_pixbuf-2.0.so:
+
+/usr/lib/x86_64-linux-gnu/libgio-2.0.so:
+
+/usr/lib/x86_64-linux-gnu/libpangoft2-1.0.so:
+
+/usr/lib/x86_64-linux-gnu/libpango-1.0.so:
+
+/usr/lib/x86_64-linux-gnu/libgobject-2.0.so:
+
+/usr/lib/x86_64-linux-gnu/libglib-2.0.so:
+
+/usr/lib/x86_64-linux-gnu/libharfbuzz.so:
+
+/usr/lib/x86_64-linux-gnu/libfontconfig.so:
+
+/usr/lib/x86_64-linux-gnu/libfreetype.so:
+
+/usr/local/lib/libopencv_datasets.a:
+
+/usr/local/lib/libopencv_plot.a:
+
+/usr/local/lib/libopencv_text.a:
+
+/usr/local/lib/libopencv_ml.a:
+
+/usr/local/lib/libopencv_phase_unwrapping.a:
+
+/usr/local/lib/libopencv_optflow.a:
+
+/usr/local/lib/libopencv_ximgproc.a:
+
+/usr/local/lib/libopencv_video.a:
+
+/usr/local/lib/libopencv_videoio.a:
+
+/usr/lib/x86_64-linux-gnu/libavcodec.so:
+
+/usr/lib/x86_64-linux-gnu/libavformat.so:
+
+/usr/lib/x86_64-linux-gnu/libavutil.so:
+
+/usr/lib/x86_64-linux-gnu/libswscale.so:
+
+/usr/local/lib/libopencv_imgcodecs.a:
+
+/usr/lib/x86_64-linux-gnu/libjpeg.so:
+
+/usr/lib/x86_64-linux-gnu/libwebp.so:
+
+/usr/lib/x86_64-linux-gnu/libwebpmux.so:
+
+/usr/lib/x86_64-linux-gnu/libwebpdemux.so:
+
+/usr/lib/x86_64-linux-gnu/libpng.so:
+
+/usr/lib/x86_64-linux-gnu/libtiff.so:
+
+/usr/local/lib/opencv4/3rdparty/liblibopenjp2.a:
+
+/usr/lib/x86_64-linux-gnu/libOpenEXR-3_1.so.30.5.1:
+
+/usr/lib/x86_64-linux-gnu/libImath-3_1.so.29.8.0:
+
+/usr/lib/x86_64-linux-gnu/libIlmThread-3_1.so.30.5.1:
+
+/usr/lib/x86_64-linux-gnu/libIex-3_1.so.30.5.1:
+
+/usr/lib/x86_64-linux-gnu/libz.so:
+
+/usr/local/lib/libopencv_objdetect.a:
+
+/usr/local/lib/libopencv_calib3d.a:
+
+/usr/local/lib/libopencv_dnn.a:
+
+/usr/local/lib/opencv4/3rdparty/liblibprotobuf.a:
+
+/usr/local/lib/libopencv_features2d.a:
+
+/usr/local/lib/libopencv_flann.a:
+
+/usr/local/lib/libopencv_photo.a:
+
+/usr/local/lib/libopencv_imgproc.a:
+
+/usr/local/lib/libopencv_core.a:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/libtbb.so:
+
+/usr/lib/x86_64-linux-gnu/libz.so:
+
+/usr/local/lib/opencv4/3rdparty/libittnotify.a:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/libpthread.a:
+
+/usr/local/lib/opencv4/3rdparty/libipphal.a:
+
+/usr/local/lib/opencv4/3rdparty/libippiw.a:
+
+/usr/local/lib/opencv4/3rdparty/libippicv.a:
+
+/usr/local/lib/libitkminc2-6.0.a:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/librt.a:
+
+/usr/local/lib/libITKIOIPL-6.0.a:
+
+/usr/local/lib/libITKIOXML-6.0.a:
+
+/usr/local/lib/libitkhdf5_cpp.a:
+
+/usr/local/lib/libitkhdf5_hl.a:
+
+/usr/local/lib/libitkhdf5.a:
+
+/usr/local/lib/libITKIOTransformBase-6.0.a:
+
+/usr/local/lib/libITKTransformFactory-6.0.a:
+
+/usr/local/lib/libITKImageFeature-6.0.a:
+
+/usr/local/lib/libITKOptimizersv4-6.0.a:
+
+/usr/local/lib/libITKOptimizers-6.0.a:
+
+/usr/local/lib/libitklbfgs-6.0.a:
+
+/usr/local/lib/libITKFFT-6.0.a:
+
+/usr/local/lib/libITKIOBMP-6.0.a:
+
+/usr/local/lib/libITKIOGDCM-6.0.a:
+
+/usr/local/lib/libitkgdcmMSFF-6.0.a:
+
+/usr/local/lib/libitkopenjpeg-6.0.a:
+
+/usr/local/lib/libitkgdcmDICT-6.0.a:
+
+/usr/local/lib/libitkgdcmIOD-6.0.a:
+
+/usr/local/lib/libitkgdcmDSED-6.0.a:
+
+/usr/local/lib/libitkgdcmCommon-6.0.a:
+
+/usr/local/lib/libitkgdcmjpeg8-6.0.a:
+
+/usr/local/lib/libitkgdcmjpeg12-6.0.a:
+
+/usr/local/lib/libitkgdcmjpeg16-6.0.a:
+
+/usr/local/lib/libitkgdcmcharls-6.0.a:
+
+/usr/local/lib/libitkgdcmuuid-6.0.a:
+
+/usr/local/lib/libITKIOGIPL-6.0.a:
+
+/usr/local/lib/libITKIOJPEG-6.0.a:
+
+/usr/local/lib/libITKIOTIFF-6.0.a:
+
+/usr/local/lib/libitktiff-6.0.a:
+
+/usr/local/lib/libitkjpeg-6.0.a:
+
+/usr/local/lib/libITKIOMeshBYU-6.0.a:
+
+/usr/local/lib/libITKIOMeshFreeSurfer-6.0.a:
+
+/usr/local/lib/libITKIOMeshGifti-6.0.a:
+
+/usr/local/lib/libITKgiftiio-5.0.a:
+
+/usr/local/lib/libITKEXPAT-6.0.a:
+
+/usr/local/lib/libITKIOMeshOBJ-6.0.a:
+
+/usr/local/lib/libITKIOMeshOFF-6.0.a:
+
+/usr/local/lib/libITKIOMeshVTK-6.0.a:
+
+/usr/local/lib/libITKIOMeshBase-6.0.a:
+
+/usr/local/lib/libITKQuadEdgeMesh-6.0.a:
+
+/usr/local/lib/libITKIOMeta-6.0.a:
+
+/usr/local/lib/libITKMetaIO-6.0.a:
+
+/usr/local/lib/libITKIONIFTI-6.0.a:
+
+/usr/local/lib/libITKniftiio-5.0.a:
+
+/usr/local/lib/libITKznz-5.0.a:
+
+/usr/local/lib/libITKIONRRD-6.0.a:
+
+/usr/local/lib/libITKNrrdIO-6.0.a:
+
+/usr/local/lib/libITKIOPNG-6.0.a:
+
+/usr/local/lib/libitkpng-6.0.a:
+
+/usr/local/lib/libitkzlib-6.0.a:
+
+/usr/local/lib/libITKIOVTK-6.0.a:
+
+/usr/local/lib/libITKIOImageBase-6.0.a:
+
+/usr/local/lib/libITKVideoCore-6.0.a:
+
+/usr/local/lib/libITKMathematicalMorphology-6.0.a:
+
+/usr/local/lib/libITKStatistics-6.0.a:
+
+/usr/local/lib/libitkNetlibSlatec-6.0.a:
+
+/usr/local/lib/libITKSpatialObjects-6.0.a:
+
+/usr/local/lib/libITKMesh-6.0.a:
+
+/usr/local/lib/libITKTransform-6.0.a:
+
+/usr/local/lib/libITKPath-6.0.a:
+
+/usr/local/lib/libITKCommon-6.0.a:
+
+/usr/local/lib/libitkdouble-conversion-6.0.a:
+
+/usr/local/lib/libitksys-6.0.a:
+
+/usr/local/lib/libitkvnl_algo-6.0.a:
+
+/usr/local/lib/libitkvnl-6.0.a:
+
+/usr/local/lib/libitkv3p_netlib-6.0.a:
+
+/usr/local/lib/libitkvcl-6.0.a:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/libm.so:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/libm.so:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/libm.so:
+
+/lib/x86_64-linux-gnu/libm.so.6:
+
+/lib/x86_64-linux-gnu/libmvec.so.1:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/libm.so:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/libm.so:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/libm.so:
+
+/lib/x86_64-linux-gnu/libm.so.6:
+
+/lib/x86_64-linux-gnu/libmvec.so.1:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/libdl.a:
+
+/usr/local/lib/libITKSmoothing-6.0.a:
+
+/usr/lib/x86_64-linux-gnu/libQt5Gui.so.5.15.13:
+
+/usr/lib/x86_64-linux-gnu/libQt5Core.so.5.15.13:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/libstdc++.so:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/libm.so:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/libm.so:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/libm.so:
+
+/lib/x86_64-linux-gnu/libm.so.6:
+
+/lib/x86_64-linux-gnu/libmvec.so.1:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/libgcc_s.so:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/libgcc_s.so:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/libgcc_s.so:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/libgcc_s.so.1:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/libgcc.a:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/libgcc.a:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/libc.so:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/libc.so:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/libc.so:
+
+/lib/x86_64-linux-gnu/libc.so.6:
+
+/usr/lib/x86_64-linux-gnu/libc_nonshared.a:
+
+/lib64/ld-linux-x86-64.so.2:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/libgcc_s.so:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/libgcc_s.so:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/libgcc_s.so:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/libgcc_s.so.1:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/libgcc.a:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/libgcc.a:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/crtendS.o:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/../../../x86_64-linux-gnu/crtn.o:
+
+/lib/x86_64-linux-gnu/libsharpyuv.so.0:
+
+/lib/x86_64-linux-gnu/libzstd.so.1:
+
+/lib/x86_64-linux-gnu/liblzma.so.5:
+
+/lib/x86_64-linux-gnu/libLerc.so.4:
+
+/lib/x86_64-linux-gnu/libjbig.so.0:
+
+/lib/x86_64-linux-gnu/libdeflate.so.0:
+
+/usr/lib/x86_64-linux-gnu/libImath-3_1.so.29.8.0:
+
+/usr/lib/x86_64-linux-gnu/libIlmThread-3_1.so.30.5.1:
+
+/usr/lib/x86_64-linux-gnu/libIex-3_1.so.30.5.1:
+
+/lib/x86_64-linux-gnu/libGL.so.1:
+
+/usr/lib/x86_64-linux-gnu/libharfbuzz.so:
+
+/lib/x86_64-linux-gnu/libmd4c.so.0:
+
+/lib/x86_64-linux-gnu/libdouble-conversion.so.3:
+
+/lib/x86_64-linux-gnu/libicui18n.so.74:
+
+/lib/x86_64-linux-gnu/libicuuc.so.74:
+
+/lib/x86_64-linux-gnu/libpcre2-16.so.0:
+
+/usr/lib/x86_64-linux-gnu/libglib-2.0.so:
+
+/lib/x86_64-linux-gnu/libGLdispatch.so.0:
+
+/lib/x86_64-linux-gnu/libGLX.so.0:
+
+/usr/lib/x86_64-linux-gnu/libfreetype.so:
+
+/lib/x86_64-linux-gnu/libgraphite2.so.3:
+
+/lib/x86_64-linux-gnu/libicudata.so.74:
+
+/lib/x86_64-linux-gnu/libpcre2-8.so.0:
+
+/lib/x86_64-linux-gnu/libX11.so.6:
+
+/lib/x86_64-linux-gnu/libbz2.so.1.0:
+
+/lib/x86_64-linux-gnu/libbrotlidec.so.1:
+
+/lib/x86_64-linux-gnu/libxcb.so.1:
+
+/lib/x86_64-linux-gnu/libbrotlicommon.so.1:
+
+/lib/x86_64-linux-gnu/libXau.so.6:
+
+/lib/x86_64-linux-gnu/libXdmcp.so.6:
+
+/lib/x86_64-linux-gnu/libbsd.so.0:
+
+/lib/x86_64-linux-gnu/libmd.so.0:

@@ -59,3 +59,6 @@ TECNICAS POR REVISAR Y VALIDAR:
 4. Describir regiones tumorales en segmentación	"brain tumor MRI segmentation regions edema necrosis"
 5. Preprocesamiento para mejorar contraste	"contrast enhancement brain MRI preprocessing"
 6. Detección de bordes en resonancia	"edge detection glioma MRI"
+
+
+A VER SI SE MANDA AL HUB

@@ -1,0 +1,5 @@
+/home/andres/CLionProjects/OpenCV_ITK_MedicalImage/build/CMakeFiles/MiApp.dir
+/home/andres/CLionProjects/OpenCV_ITK_MedicalImage/build/CMakeFiles/edit_cache.dir
+/home/andres/CLionProjects/OpenCV_ITK_MedicalImage/build/CMakeFiles/rebuild_cache.dir
+/home/andres/CLionProjects/OpenCV_ITK_MedicalImage/build/CMakeFiles/MiApp_autogen_timestamp_deps.dir
+/home/andres/CLionProjects/OpenCV_ITK_MedicalImage/build/CMakeFiles/MiApp_autogen.dir

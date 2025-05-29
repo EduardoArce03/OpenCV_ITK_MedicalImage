@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/andres/CLionProjects/OpenCV_ITK_MedicalImage/build/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

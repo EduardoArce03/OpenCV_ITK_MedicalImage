@@ -1,49 +1,8 @@
-//
-// Created by eduardo on 22/04/25.
-//
-
 #include "image_processing.h"
-#include <itkExtractImageFilter.h>
-#include <itkImageRegionConstIterator.h>
+#include <opencv2/opencv.hpp>
 #include <vector>
-#include <opencv4/opencv2/opencv.hpp>
 
-ImageType2D::Pointer ExtractSlice(ImageType3D::Pointer image, int sliceIndex) {
-    ImageType3D::RegionType region = image->GetLargestPossibleRegion();
-    ImageType3D::SizeType size = region.GetSize();
-    size[2] = 0; // Solo 1 slice
-
-    ImageType3D::IndexType start = region.GetIndex();
-    start[2] = sliceIndex;
-
-    ImageType3D::RegionType desiredRegion;
-    desiredRegion.SetSize(size);
-    desiredRegion.SetIndex(start);
-
-    auto extractor = itk::ExtractImageFilter<ImageType3D, ImageType2D>::New();
-    extractor->SetExtractionRegion(desiredRegion);
-    extractor->SetInput(image);
-    extractor->SetDirectionCollapseToSubmatrix();
-    extractor->Update();
-
-    return extractor->GetOutput();
-}
-
-cv::Mat ITKToMat(ImageType2D::Pointer image) {
-    auto region = image->GetLargestPossibleRegion();
-    auto size = region.GetSize();
-    cv::Mat mat(size[1], size[0], CV_32FC1);
-
-    itk::ImageRegionConstIterator<ImageType2D> it(image, region);
-    for (int y = 0; y < size[1]; ++y)
-        for (int x = 0; x < size[0]; ++x, ++it)
-            mat.at<float>(y, x) = it.Get();
-
-    return mat;
-}
-
-
-// APLICAR FILTROS DE ILUMINACION
+// === FILTROS DE ILUMINACIÓN ===
 std::vector<cv::Mat> applyLightingFilters(const cv::Mat& gray) {
     std::vector<cv::Mat> results;
 
@@ -77,12 +36,20 @@ std::vector<cv::Mat> applyLightingFilters(const cv::Mat& gray) {
     return results;
 }
 
-
-// AÑADIR RUIDO GAUSSIANO
+// === RUIDO GAUSSIANO ===
 cv::Mat addGaussianNoise(const cv::Mat& image, int mean, int std) {
     cv::Mat noise = cv::Mat::zeros(image.size(), CV_16S);
     cv::randn(noise, mean, std);
-    cv::Mat noisy = image + noise;
+    cv::Mat noisy;
+    if (image.type() != noise.type()) {
+        cv::Mat temp;
+        image.convertTo(temp, CV_16S); // Mismo tipo
+        temp += noise;
+        temp.convertTo(noisy, CV_8U); // Tipo mostrable
+    } else {
+        image += noise;
+        noisy = image.clone();
+    }
     cv::normalize(noisy, noisy, 0, 255, cv::NORM_MINMAX, CV_8U);
 
     cv::putText(noisy, "Gauss Noise µ=" + std::to_string(mean) + " σ=" + std::to_string(std),
@@ -90,25 +57,26 @@ cv::Mat addGaussianNoise(const cv::Mat& image, int mean, int std) {
     return noisy;
 }
 
-//AÑADIR RUIDO SPECKLE
-
+// === RUIDO SPECKLE ===
 cv::Mat addSpeckleNoise(const cv::Mat& image, float var) {
     cv::Mat noise = cv::Mat::zeros(image.size(), CV_32F);
-    cv::randu(noise, 0.0, 1.0);
+    cv::randu(noise, 0.0f, 1.0f);
+
     cv::Mat noisy = image.clone();
-    for (int y = 0; y < image.rows; ++y)
-        for (int x = 0; x < image.cols; ++x)
+    for (int y = 0; y < image.rows; ++y) {
+        for (int x = 0; x < image.cols; ++x) {
             noisy.at<uchar>(y, x) = cv::saturate_cast<uchar>(
-                image.at<uchar>(y, x) * (1.0 + var * noise.at<float>(y, x))
+                image.at<uchar>(y, x) * (1.0f + var * noise.at<float>(y, x))
             );
+        }
+    }
 
     cv::putText(noisy, "Speckle Noise var=" + std::to_string(var).substr(0, 4),
                 cv::Point(10, 30), cv::FONT_HERSHEY_SIMPLEX, 0.8, cv::Scalar(255, 255, 255), 2);
     return noisy;
 }
 
-// APLICAR FILTROS Y SUAVIZADOS
-
+// === FILTROS SUAVIZADOS ===
 std::vector<cv::Mat> applySmoothing(const cv::Mat& gray, int k) {
     if (k % 2 == 0) k += 1;
     k = std::max(k, 3);
@@ -133,7 +101,7 @@ std::vector<cv::Mat> applySmoothing(const cv::Mat& gray, int k) {
     return {blur, gaussian, median};
 }
 
-// DETECCION DE BORDES (CANNY Y SOBEL)
+// === DETECCIÓN DE BORDES ===
 std::vector<cv::Mat> applyEdges(const cv::Mat& image, bool smooth, int k) {
     cv::Mat gray;
     if (image.channels() > 1)
@@ -145,24 +113,19 @@ std::vector<cv::Mat> applyEdges(const cv::Mat& image, bool smooth, int k) {
         cv::GaussianBlur(gray, gray, cv::Size(k, k), 0);
 
     cv::Mat sobelX, sobelY, mag;
-
     cv::Sobel(gray, sobelX, CV_64F, 1, 0, 3);
     cv::Sobel(gray, sobelY, CV_64F, 0, 1, 3);
     cv::magnitude(sobelX, sobelY, mag);
+    mag.convertTo(mag, CV_8U);
 
-    // ✅ CORRECCIÓN: Convierte a tipo mostrable
     cv::Mat mag8u;
-    mag.convertTo(mag8u, CV_8U);
+    cv::cvtColor(mag, mag8u, cv::COLOR_GRAY2BGR);
+    cv::putText(mag8u, "Sobel", cv::Point(10, 30), cv::FONT_HERSHEY_SIMPLEX, 1.0, cv::Scalar(255, 255, 255), 2);
 
-    // Opcional: Agregar etiqueta
-    cv::putText(mag8u, "Sobel", cv::Point(10, 30),
-                cv::FONT_HERSHEY_SIMPLEX, 1.0, cv::Scalar(255, 255, 255), 2);
-
-    return {mag8u};
+    return {mag8u}; // Sobel solo por ahora
 }
 
-// APLICACIONES MORFOLOGICAS
-
+// === OPERACIONES MORFOLÓGICAS ===
 std::map<std::string, cv::Mat> applyMorphologicalOps(const cv::Mat& binary, const std::vector<int>& kernelSizes) {
     std::map<std::string, cv::Mat> results;
 

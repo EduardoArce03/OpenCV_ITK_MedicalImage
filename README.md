@@ -134,7 +134,7 @@ include(${ITK_USE_FILE})
 
 find_package(OpenCV REQUIRED)
 
-add_executable(MiApp src/main.cpp)
+add_executable(MiApp gui/main.cpp)
 
 target_include_directories(MiApp PRIVATE
         ${OpenCV_INCLUDE_DIRS}
