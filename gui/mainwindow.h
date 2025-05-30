@@ -6,10 +6,14 @@
 #include <QSlider>
 #include <QPushButton>
 #include <opencv2/opencv.hpp>
+#include <QLabel>
+#include <QSpinBox>
 
-QT_BEGIN_NAMESPACE
+#include "brats_loader.h"
+
+
 namespace Ui { class MainWindow; }
-QT_END_NAMESPACE
+
 
 class MainWindow : public QMainWindow
 {
@@ -20,9 +24,8 @@ public:
     ~MainWindow();
 
 private slots:
-    void loadImage();         // Cargar imagen médica
-    void applyFilters();     // Aplicar filtros seleccionados
-    void updateNoiseParams(); // Actualizar valores mostrados
+    void loadImage();
+    void applyFilters();
 
 private:
     void showOriginal(const cv::Mat& img);
@@ -30,6 +33,9 @@ private:
 
     Ui::MainWindow *ui;
 
+
+    BratsData patient;
+    std::string currentModality = "flair";
     cv::Mat currentImage;
 };
 

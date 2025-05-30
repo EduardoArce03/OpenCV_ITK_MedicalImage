@@ -63,6 +63,7 @@ public:
     QLabel *medianLabel;
     QHBoxLayout *edgesRow;
     QLabel *cannyLabel;
+    QLabel *sobelLabel;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -272,6 +273,13 @@ public:
 
         edgesRow->addWidget(cannyLabel);
 
+        sobelLabel = new QLabel(scrollContent);
+        sobelLabel->setObjectName(QString::fromUtf8("sobelLabel"));
+        sobelLabel->setAlignment(Qt::AlignCenter);
+        sobelLabel->setFrameShape(QFrame::Box);
+
+        edgesRow->addWidget(sobelLabel);
+
 
         resultsLayout->addLayout(edgesRow);
 
@@ -309,6 +317,7 @@ public:
         gaussianLabel->setText(QCoreApplication::translate("MainWindow", "Gaussian", nullptr));
         medianLabel->setText(QCoreApplication::translate("MainWindow", "Median", nullptr));
         cannyLabel->setText(QCoreApplication::translate("MainWindow", "Canny", nullptr));
+        sobelLabel->setText(QCoreApplication::translate("MainWindow", "Sobel", nullptr));
     } // retranslateUi
 
 };

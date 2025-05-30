@@ -335,6 +335,20 @@
                                                 </property>
                                             </widget>
                                         </item>
+                                        <!-- Agrega esta etiqueta para Sobel -->
+                                        <item>
+                                            <widget class="QLabel" name="sobelLabel">
+                                                <property name="text">
+                                                    <string>Sobel</string>
+                                                </property>
+                                                <property name="alignment">
+                                                    <set>Qt::AlignCenter</set>
+                                                </property>
+                                                <property name="frameShape">
+                                                    <enum>QFrame::Box</enum>
+                                                </property>
+                                            </widget>
+                                        </item>
                                     </layout>
                                 </item>
                             </layout>
