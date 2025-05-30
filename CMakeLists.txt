@@ -13,10 +13,16 @@ include(${ITK_USE_FILE})
 find_package(OpenCV REQUIRED)
 
 # Crear ejecutable
-add_executable(MiApp main.cpp
+add_executable(MiApp
+        gui/main.cpp
+        gui/utils.cpp
+        src/brats_loader.cpp
+        src/image_processing.cpp
         src/image_utils.cpp
-        include/image_utils.h
+        include/nii_processing.h
+        src/nii_processing.cpp
 )
+
 
 # Incluir headers del módulo ITKBridgeOpenCV manualmente
 target_include_directories(MiApp PRIVATE
