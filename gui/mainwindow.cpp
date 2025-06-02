@@ -145,7 +145,6 @@ void MainWindow::procesarLote()
 
     int start = ui->startSliceSpinBox->value();
     int end = ui->endSliceSpinBox->value();
-
     if (start > end) std::swap(start, end);
 
     auto flair = patient.modalities.at("flair");
@@ -157,50 +156,92 @@ void MainWindow::procesarLote()
         auto slice = ExtractSlice(flair, i);
         cv::Mat img = ITKToMat(slice);
 
+        // Convertir a 8 bits
         cv::Mat imgU8;
         normalize(img, imgU8, 0, 255, NORM_MINMAX);
         imgU8.convertTo(imgU8, CV_8UC1);
 
+        // Inicializar copia para procesar
         cv::Mat processed = imgU8.clone();
 
+        // Obtener la máscara binaria de la segmentación
+        cv::Mat mask = extractMaskSlice(seg, i);
+        cv::Mat maskBin;
+        threshold(mask, maskBin, 0, 255, cv::THRESH_BINARY);
+
+        // === PREPROCESAMIENTO SOLO EN TUMOR ===
         QString selected = ui->preprocessCombo->currentText();
         if (selected == "Hist. Equal.") {
-            cv::equalizeHist(processed, processed);
+            cv::Mat temp;
+            equalizeHist(processed, temp);
+            temp.copyTo(processed, maskBin);
         } else if (selected == "CLAHE") {
-            cv::Ptr<cv::CLAHE> clahe = cv::createCLAHE();
+            cv::Ptr<cv::CLAHE> clahe = createCLAHE();
             clahe->setClipLimit(2.0);
-            clahe->apply(processed, processed);
+            cv::Mat temp;
+            clahe->apply(processed, temp);
+            temp.copyTo(processed, maskBin);
         } else if (selected == "Gamma Corr.") {
             cv::Mat temp;
             processed.convertTo(temp, CV_32F, 1.0 / 255.0);
-            cv::pow(temp, 1.0 / 1.5, temp);
+            pow(temp, 1.0 / 1.5, temp);
             temp *= 255.0;
-            temp.convertTo(processed, CV_8U);
+            temp.convertTo(temp, CV_8U);
+            temp.copyTo(processed, maskBin);
+        } else if (selected == "Contrast Stretching") {
+            cv::Mat temp;
+            double minVal, maxVal;
+            cv::minMaxLoc(processed, &minVal, &maxVal);
+            processed.convertTo(temp, CV_8U, 255.0 / (maxVal - minVal), -minVal * 255.0 / (maxVal - minVal));
+            temp.copyTo(processed, maskBin);
         }
 
-        if (ui->checkThreshold->isChecked())
-            cv::threshold(processed, processed, 80, 255, cv::THRESH_BINARY);
-        if (ui->checkLogical->isChecked())
-            cv::bitwise_not(processed, processed);
-        if (ui->checkBlur->isChecked())
-            cv::GaussianBlur(processed, processed, cv::Size(5, 5), 1.0);
+
+        // === FILTROS SOLO EN TUMOR ===
+        if (ui->checkThreshold->isChecked()) {
+            cv::Mat temp;
+            threshold(processed, temp, 80, 255, THRESH_BINARY);
+            temp.copyTo(processed, maskBin);
+        }
+
+        if (ui->checkLogical->isChecked()) {
+            cv::Mat temp;
+            bitwise_not(processed, temp);
+            temp.copyTo(processed, maskBin);
+        }
+
+        if (ui->checkBlur->isChecked()) {
+            cv::Mat temp;
+            cv::GaussianBlur(processed, temp, cv::Size(5, 5), 1.0);
+            temp.copyTo(processed, maskBin);
+        }
+
         if (ui->checkMorph->isChecked()) {
+            cv::Mat temp;
             cv::Mat element = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(3, 3));
-            cv::morphologyEx(processed, processed, cv::MORPH_CLOSE, element);
+            morphologyEx(processed, temp, MORPH_CLOSE, element);
+            temp.copyTo(processed, maskBin);
         }
 
-        auto mask = extractMaskSlice(seg, i);
-        cv::threshold(mask, mask, 0, 255, cv::THRESH_BINARY);
-        cv::Mat overlay = overlayMaskOnBase(imgU8, mask, 0.4);
 
+        // === CREAR OVERLAY TIPO ANÁLISIS MÉDICO (rojo translúcido) ===
+        cv::Mat overlay;
+        cv::Mat colorBase;
+        cv::cvtColor(imgU8, colorBase, cv::COLOR_GRAY2BGR);
+        overlay = colorBase.clone();
+        overlay.setTo(cv::Scalar(0, 0, 255), maskBin);  // rojo en BGR
+        cv::addWeighted(overlay, 0.4, colorBase, 0.6, 0.0, overlay);
+
+        // === GUARDAR ===
         std::string base = "output_batch/slice_" + std::to_string(i);
-        cv::imwrite(base + "_original.png", imgU8);
-        cv::imwrite(base + "_processed.png", processed);
-        cv::imwrite(base + "_overlay.png", overlay);
+        imwrite(base + "_original.png", imgU8);
+        imwrite(base + "_processed.png", processed);
+        imwrite(base + "_overlay.png", overlay);
     }
 
     QMessageBox::information(this, "Lote procesado", "✅ Imágenes procesadas y guardadas en 'output_batch/'");
 }
+
 
 
 void MainWindow::showResult(const cv::Mat& img, QLabel* label)
