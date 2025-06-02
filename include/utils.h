@@ -8,14 +8,12 @@
 
 namespace fs = std::filesystem;
 
-// Asegurar que una carpeta exista
 void ensureDirectoryExists(const std::string& path);
-
-// Guardar imagen procesada
 void saveProcessed(cv::Mat img, const std::string& folder, const std::string& filename);
-
-// Redimensionar y concatenar imágenes
 cv::Mat hconcatImages(const std::vector<cv::Mat>& images);
 cv::Mat vconcatImages(const std::vector<cv::Mat>& images);
+
+// Superponer una máscara sobre una imagen base con transparencia
+cv::Mat overlayMaskOnBase(const cv::Mat& base, const cv::Mat& mask, double alpha = 0.5);
 
 #endif // UTILS_H

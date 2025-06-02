@@ -3,360 +3,88 @@
     <class>MainWindow</class>
     <widget class="QMainWindow" name="MainWindow">
         <property name="geometry">
-            <rect>
-                <x>0</x>
-                <y>0</y>
-                <width>1200</width>
-                <height>900</height>
-            </rect>
+            <rect><x>0</x><y>0</y><width>1200</width><height>800</height></rect>
         </property>
         <property name="windowTitle">
-            <string>Vision por Computador - Imágenes Médicas</string>
+            <string>Procesamiento de Imágenes Médicas</string>
         </property>
-        <widget class="QWidget" name="centralWidget">
+        <widget class="QWidget" name="centralwidget">
             <layout class="QVBoxLayout" name="verticalLayout">
 
-                <!-- Título -->
-                <item>
-                    <widget class="QLabel" name="titleLabel">
-                        <property name="text">
-                            <string>Procesamiento de Imágenes Médicas</string>
-                        </property>
-                        <property name="alignment">
-                            <set>Qt::AlignCenter</set>
-                        </property>
-                        <property name="font">
-                            <font>
-                                <pointsize>14</pointsize>
-                                <weight>75</weight>
-                                <bold>true</bold>
-                            </font>
-                        </property>
-                    </widget>
-                </item>
-
-                <!-- Botones -->
+                <!-- Botones de carga y aplicación -->
                 <item>
                     <layout class="QHBoxLayout" name="buttonLayout">
-                        <item>
-                            <widget class="QPushButton" name="loadButton">
-                                <property name="text">
-                                    <string>Cargar Imagen</string>
-                                </property>
-                            </widget>
-                        </item>
-                        <item>
-                            <widget class="QPushButton" name="applyButton">
-                                <property name="text">
-                                    <string>Aplicar Filtros</string>
-                                </property>
-                            </widget>
-                        </item>
+                        <item><widget class="QPushButton" name="loadButton"><property name="text"><string>Cargar Imagen</string></property></widget></item>
+                        <item><widget class="QPushButton" name="applyButton"><property name="text"><string>Aplicar Filtros</string></property></widget></item>
                     </layout>
                 </item>
 
-                <!-- Grupo: Ruido -->
+                <!-- Sliders -->
                 <item>
-                    <widget class="QGroupBox" name="noiseGroup">
-                        <property name="title">
-                            <string>Ruido</string>
-                        </property>
-                        <layout class="QVBoxLayout" name="noiseLayout">
-                            <!-- Media Gaussiana -->
-                            <item>
-                                <layout class="QHBoxLayout" name="meanLayout">
-                                    <item>
-                                        <widget class="QLabel" name="meanLabel">
-                                            <property name="text">
-                                                <string>Media Gaussiana:</string>
-                                            </property>
-                                        </widget>
-                                    </item>
-                                    <item>
-                                        <widget class="QSlider" name="meanSlider">
-                                            <property name="orientation">
-                                                <enum>Qt::Horizontal</enum>
-                                            </property>
-                                            <property name="minimum">
-                                                <number>0</number>
-                                            </property>
-                                            <property name="maximum">
-                                                <number>100</number>
-                                            </property>
-                                            <property name="value">
-                                                <number>0</number>
-                                            </property>
-                                        </widget>
-                                    </item>
-                                    <item>
-                                        <widget class="QLabel" name="meanValueLabel">
-                                            <property name="text">
-                                                <string>0</string>
-                                            </property>
-                                        </widget>
-                                    </item>
-                                </layout>
-                            </item>
+                    <layout class="QGridLayout" name="slidersLayout">
+                        <item row="0" column="0"><widget class="QLabel" name="meanLabel"><property name="text"><string>Media:</string></property></widget></item>
+                        <item row="0" column="1"><widget class="QSlider" name="meanSlider"><property name="orientation"><enum>Qt::Horizontal</enum></property></widget></item>
+                        <item row="0" column="2"><widget class="QLabel" name="meanValueLabel"><property name="text"><string>0</string></property></widget></item>
 
-                            <!-- Desv. Estándar -->
-                            <item>
-                                <layout class="QHBoxLayout" name="stdLayout">
-                                    <item>
-                                        <widget class="QLabel" name="stdLabel">
-                                            <property name="text">
-                                                <string>Desv. Estándar:</string>
-                                            </property>
-                                        </widget>
-                                    </item>
-                                    <item>
-                                        <widget class="QSlider" name="stdSlider">
-                                            <property name="orientation">
-                                                <enum>Qt::Horizontal</enum>
-                                            </property>
-                                            <property name="minimum">
-                                                <number>0</number>
-                                            </property>
-                                            <property name="maximum">
-                                                <number>100</number>
-                                            </property>
-                                            <property name="value">
-                                                <number>25</number>
-                                            </property>
-                                        </widget>
-                                    </item>
-                                    <item>
-                                        <widget class="QLabel" name="stdValueLabel">
-                                            <property name="text">
-                                                <string>25</string>
-                                            </property>
-                                        </widget>
-                                    </item>
-                                </layout>
-                            </item>
+                        <item row="1" column="0"><widget class="QLabel" name="stdLabel"><property name="text"><string>Desviación:</string></property></widget></item>
+                        <item row="1" column="1"><widget class="QSlider" name="stdSlider"><property name="orientation"><enum>Qt::Horizontal</enum></property></widget></item>
+                        <item row="1" column="2"><widget class="QLabel" name="stdValueLabel"><property name="text"><string>0</string></property></widget></item>
 
-                            <!-- Varianza Speckle -->
-                            <item>
-                                <layout class="QHBoxLayout" name="varLayout">
-                                    <item>
-                                        <widget class="QLabel" name="varLabel">
-                                            <property name="text">
-                                                <string>Varianza Speckle:</string>
-                                            </property>
-                                        </widget>
-                                    </item>
-                                    <item>
-                                        <widget class="QSlider" name="varSlider">
-                                            <property name="orientation">
-                                                <enum>Qt::Horizontal</enum>
-                                            </property>
-                                            <property name="minimum">
-                                                <number>0</number>
-                                            </property>
-                                            <property name="maximum">
-                                                <number>100</number>
-                                            </property>
-                                            <property name="value">
-                                                <number>4</number>
-                                            </property>
-                                        </widget>
-                                    </item>
-                                    <item>
-                                        <widget class="QLabel" name="varValueLabel">
-                                            <property name="text">
-                                                <string>4</string>
-                                            </property>
-                                        </widget>
-                                    </item>
-                                </layout>
-                            </item>
-                        </layout>
-                    </widget>
+                        <item row="2" column="0"><widget class="QLabel" name="varLabel"><property name="text"><string>Varianza:</string></property></widget></item>
+                        <item row="2" column="1"><widget class="QSlider" name="varSlider"><property name="orientation"><enum>Qt::Horizontal</enum></property></widget></item>
+                        <item row="2" column="2"><widget class="QLabel" name="varValueLabel"><property name="text"><string>0</string></property></widget></item>
+                    </layout>
                 </item>
 
-                <!-- Imagen Original -->
+                <!-- Procesamiento Slice -->
                 <item>
-                    <widget class="QLabel" name="originalLabel">
-                        <property name="text">
-                            <string>No hay imagen cargada</string>
-                        </property>
-                        <property name="alignment">
-                            <set>Qt::AlignCenter</set>
-                        </property>
-                        <property name="frameShape">
-                            <enum>QFrame::Box</enum>
-                        </property>
-                    </widget>
+                    <layout class="QHBoxLayout" name="sliceSelectionLayout">
+                        <item><widget class="QLabel" name="sliceLabel"><property name="text"><string>Slice Index:</string></property></widget></item>
+                        <item><widget class="QSpinBox" name="sliceSpinBox"><property name="minimum"><number>0</number></property><property name="maximum"><number>100</number></property><property name="value"><number>50</number></property></widget></item>
+                        <item><widget class="QPushButton" name="processButton"><property name="text"><string>Procesar Slice</string></property></widget></item>
+                    </layout>
                 </item>
 
-                <!-- Resultados Procesados -->
+                <!-- Imágenes principales -->
                 <item>
-                    <widget class="QScrollArea" name="resultsScroll">
-                        <property name="widgetResizable">
-                            <bool>true</bool>
-                        </property>
-                        <widget class="QWidget" name="scrollContent">
-                            <layout class="QVBoxLayout" name="resultsLayout">
-
-                                <!-- FILA 1: Iluminación -->
-                                <item>
-                                    <layout class="QHBoxLayout" name="lightingRow">
-                                        <item>
-                                            <widget class="QLabel" name="eqHistLabel">
-                                                <property name="text">
-                                                    <string>Hist. Equal.</string>
-                                                </property>
-                                                <property name="alignment">
-                                                    <set>Qt::AlignCenter</set>
-                                                </property>
-                                                <property name="frameShape">
-                                                    <enum>QFrame::Box</enum>
-                                                </property>
-                                            </widget>
-                                        </item>
-                                        <item>
-                                            <widget class="QLabel" name="claheLabel">
-                                                <property name="text">
-                                                    <string>CLAHE</string>
-                                                </property>
-                                                <property name="alignment">
-                                                    <set>Qt::AlignCenter</set>
-                                                </property>
-                                                <property name="frameShape">
-                                                    <enum>QFrame::Box</enum>
-                                                </property>
-                                            </widget>
-                                        </item>
-                                        <item>
-                                            <widget class="QLabel" name="gammaLabel">
-                                                <property name="text">
-                                                    <string>Gamma Corr.</string>
-                                                </property>
-                                                <property name="alignment">
-                                                    <set>Qt::AlignCenter</set>
-                                                </property>
-                                                <property name="frameShape">
-                                                    <enum>QFrame::Box</enum>
-                                                </property>
-                                            </widget>
-                                        </item>
-                                    </layout>
-                                </item>
-
-                                <!-- FILA 2: Ruido -->
-                                <item>
-                                    <layout class="QHBoxLayout" name="noiseRow">
-                                        <item>
-                                            <widget class="QLabel" name="noisyGaussLabel">
-                                                <property name="text">
-                                                    <string>Ruido Gaussiano</string>
-                                                </property>
-                                                <property name="alignment">
-                                                    <set>Qt::AlignCenter</set>
-                                                </property>
-                                                <property name="frameShape">
-                                                    <enum>QFrame::Box</enum>
-                                                </property>
-                                            </widget>
-                                        </item>
-                                        <item>
-                                            <widget class="QLabel" name="noisySpeckleLabel">
-                                                <property name="text">
-                                                    <string>Ruido Speckle</string>
-                                                </property>
-                                                <property name="alignment">
-                                                    <set>Qt::AlignCenter</set>
-                                                </property>
-                                                <property name="frameShape">
-                                                    <enum>QFrame::Box</enum>
-                                                </property>
-                                            </widget>
-                                        </item>
-                                    </layout>
-                                </item>
-
-                                <!-- FILA 3: Suavizado -->
-                                <item>
-                                    <layout class="QHBoxLayout" name="smoothingRow">
-                                        <item>
-                                            <widget class="QLabel" name="blurLabel">
-                                                <property name="text">
-                                                    <string>Blur</string>
-                                                </property>
-                                                <property name="alignment">
-                                                    <set>Qt::AlignCenter</set>
-                                                </property>
-                                                <property name="frameShape">
-                                                    <enum>QFrame::Box</enum>
-                                                </property>
-                                            </widget>
-                                        </item>
-                                        <item>
-                                            <widget class="QLabel" name="gaussianLabel">
-                                                <property name="text">
-                                                    <string>Gaussian</string>
-                                                </property>
-                                                <property name="alignment">
-                                                    <set>Qt::AlignCenter</set>
-                                                </property>
-                                                <property name="frameShape">
-                                                    <enum>QFrame::Box</enum>
-                                                </property>
-                                            </widget>
-                                        </item>
-                                        <item>
-                                            <widget class="QLabel" name="medianLabel">
-                                                <property name="text">
-                                                    <string>Median</string>
-                                                </property>
-                                                <property name="alignment">
-                                                    <set>Qt::AlignCenter</set>
-                                                </property>
-                                                <property name="frameShape">
-                                                    <enum>QFrame::Box</enum>
-                                                </property>
-                                            </widget>
-                                        </item>
-                                    </layout>
-                                </item>
-
-                                <!-- FILA 4: Bordes -->
-                                <item>
-                                    <layout class="QHBoxLayout" name="edgesRow">
-                                        <item>
-                                            <widget class="QLabel" name="cannyLabel">
-                                                <property name="text">
-                                                    <string>Canny</string>
-                                                </property>
-                                                <property name="alignment">
-                                                    <set>Qt::AlignCenter</set>
-                                                </property>
-                                                <property name="frameShape">
-                                                    <enum>QFrame::Box</enum>
-                                                </property>
-                                            </widget>
-                                        </item>
-                                        <!-- Agrega esta etiqueta para Sobel -->
-                                        <item>
-                                            <widget class="QLabel" name="sobelLabel">
-                                                <property name="text">
-                                                    <string>Sobel</string>
-                                                </property>
-                                                <property name="alignment">
-                                                    <set>Qt::AlignCenter</set>
-                                                </property>
-                                                <property name="frameShape">
-                                                    <enum>QFrame::Box</enum>
-                                                </property>
-                                            </widget>
-                                        </item>
-                                    </layout>
-                                </item>
-                            </layout>
-                        </widget>
-                    </widget>
+                    <layout class="QHBoxLayout" name="imagesLayout">
+                        <item><widget class="QLabel" name="originalLabel"><property name="text"><string>FLAIR</string></property><property name="alignment"><set>Qt::AlignCenter</set></property></widget></item>
+                        <item><widget class="QLabel" name="maskLabel"><property name="text"><string>Máscara</string></property><property name="alignment"><set>Qt::AlignCenter</set></property></widget></item>
+                        <item><widget class="QLabel" name="overlayLabel"><property name="text"><string>Superposición</string></property><property name="alignment"><set>Qt::AlignCenter</set></property></widget></item>
+                    </layout>
                 </item>
+
+                <!-- Resultados de procesamiento -->
+                <item>
+                    <layout class="QGridLayout" name="resultGrid">
+                        <item row="0" column="0"><widget class="QLabel" name="eqHistLabel"><property name="text"><string>Equalización Hist</string></property></widget></item>
+                        <item row="0" column="1"><widget class="QLabel" name="claheLabel"><property name="text"><string>CLAHE</string></property></widget></item>
+                        <item row="0" column="2"><widget class="QLabel" name="gammaLabel"><property name="text"><string>Gamma</string></property></widget></item>
+
+                        <item row="1" column="0"><widget class="QLabel" name="noisyGaussLabel"><property name="text"><string>Ruido Gauss</string></property></widget></item>
+                        <item row="1" column="1"><widget class="QLabel" name="noisySpeckleLabel"><property name="text"><string>Ruido Speckle</string></property></widget></item>
+
+                        <item row="2" column="0"><widget class="QLabel" name="blurLabel"><property name="text"><string>Desenfoque</string></property></widget></item>
+                        <item row="2" column="1"><widget class="QLabel" name="gaussianLabel"><property name="text"><string>Gaussiano</string></property></widget></item>
+                        <item row="2" column="2"><widget class="QLabel" name="medianLabel"><property name="text"><string>Mediana</string></property></widget></item>
+
+                        <item row="3" column="0"><widget class="QLabel" name="cannyLabel"><property name="text"><string>Bordes Canny</string></property></widget></item>
+                    </layout>
+                </item>
+
+                <!-- Resultados de slice -->
+                <item>
+                    <layout class="QHBoxLayout" name="sliceImagesLayout">
+                        <item><widget class="QLabel" name="originalSliceLabel"><property name="text"><string>Slice Original</string></property><property name="alignment"><set>Qt::AlignCenter</set></property></widget></item>
+                        <item><widget class="QLabel" name="processedSliceLabel"><property name="text"><string>Slice Procesado</string></property><property name="alignment"><set>Qt::AlignCenter</set></property></widget></item>
+                        <item><widget class="QLabel" name="overlaySliceLabel"><property name="text"><string>Overlay Slice</string></property><property name="alignment"><set>Qt::AlignCenter</set></property></widget></item>
+                    </layout>
+                </item>
+
             </layout>
         </widget>
+        <widget class="QMenuBar" name="menubar"/>
+        <widget class="QStatusBar" name="statusbar"/>
     </widget>
     <resources/>
     <connections/>

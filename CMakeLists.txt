@@ -26,12 +26,13 @@ include_directories(${CMAKE_SOURCE_DIR}/include)
 # Fuentes del proyecto
 add_executable(MiApp
         gui/main.cpp
-        #gui/mainwindow.cpp
+        gui/mainwindow.cpp
         src/image_utils.cpp
         src/image_processing.cpp
         include/nii_processing.h
         src/nii_processing.cpp
         src/brats_loader.cpp
+        gui/utils.cpp
 )
 
 target_include_directories(MiApp PRIVATE
