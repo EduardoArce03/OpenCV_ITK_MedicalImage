@@ -20,8 +20,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     connect(ui->loadButton, &QPushButton::clicked, this, &MainWindow::loadImage);
-    connect(ui->applyButton, &QPushButton::clicked, this, &MainWindow::applyFilters);
     connect(ui->processButton, &QPushButton::clicked, this, &MainWindow::procesarSlice);
+    connect(ui->batchButton, &QPushButton::clicked, this, &MainWindow::procesarLote);
 
     connect(ui->meanSlider, &QSlider::valueChanged, this, [this](int value) {
         ui->meanValueLabel->setText(QString::number(value));
@@ -51,44 +51,11 @@ void MainWindow::loadImage()
             auto slice = ExtractSlice(volume, 50);
             currentImage = ITKToMat(slice);
             currentImage.convertTo(currentImage, CV_8U, 255.0);
-            showOriginal(currentImage);
+            showResult(currentImage, ui->originalSliceLabel);
         } else {
             QMessageBox::warning(this, "Error", "No se pudo cargar el volumen FLAIR.");
         }
     }
-}
-
-void MainWindow::applyFilters()
-{
-    if (currentImage.empty()) return;
-
-    int mean = ui->meanSlider->value();
-    int std = ui->stdSlider->value();
-    float var = static_cast<float>(ui->varSlider->value()) / 100.0f;
-
-    cv::Mat gray;
-    if (currentImage.channels() == 3)
-        cv::cvtColor(currentImage, gray, cv::COLOR_BGR2GRAY);
-    else
-        gray = currentImage.clone();
-
-    auto lightingResults = applyLightingFilters(gray);
-    showResult(lightingResults[0], ui->eqHistLabel);
-    showResult(lightingResults[1], ui->claheLabel);
-    showResult(lightingResults[2], ui->gammaLabel);
-
-    cv::Mat noisyGauss = addGaussianNoise(gray, mean, std);
-    cv::Mat noisySpeckle = addSpeckleNoise(gray, var);
-    showResult(noisyGauss, ui->noisyGaussLabel);
-    showResult(noisySpeckle, ui->noisySpeckleLabel);
-
-    auto smoothed = applySmoothing(gray);
-    showResult(smoothed[0], ui->blurLabel);
-    showResult(smoothed[1], ui->gaussianLabel);
-    showResult(smoothed[2], ui->medianLabel);
-
-    auto edgeResults = applyEdges(gray, true);
-    showResult(edgeResults[0], ui->cannyLabel);
 }
 
 void MainWindow::procesarSlice()
@@ -96,37 +63,145 @@ void MainWindow::procesarSlice()
     if (!patient.modalities.count("flair")) return;
 
     int sliceIndex = ui->sliceSpinBox->value();
-
     auto flair = patient.modalities.at("flair");
-    auto region = flair->GetLargestPossibleRegion();
-    auto size = region.GetSize();
+    auto slice = ExtractSlice(flair, sliceIndex);
+    currentImage = ITKToMat(slice);
 
-    cv::Mat original(size[1], size[0], CV_32FC1);
-    for (int y = 0; y < size[1]; ++y)
-        for (int x = 0; x < size[0]; ++x)
-            original.at<float>(y, x) = flair->GetPixel({x, y, sliceIndex});
-
+    // 1. Convertir a 8 bits para visualizar
     cv::Mat originalU8;
-    normalize(original, originalU8, 0, 255, NORM_MINMAX);
+    normalize(currentImage, originalU8, 0, 255, NORM_MINMAX);
     originalU8.convertTo(originalU8, CV_8UC1);
 
-    cv::Mat imgSlice = processSlice(flair, sliceIndex);
-    cv::Mat maskSlice = extractMaskSlice(patient.segmentation, sliceIndex);
-    threshold(maskSlice, maskSlice, 0, 255, THRESH_BINARY);
+    // 2. Clonar para aplicar filtros
+    cv::Mat processed = originalU8.clone();
 
-    cv::Mat overlayOriginal = overlayMaskOnBase(originalU8, maskSlice, 0.4);
+    // 3. Obtener la máscara binaria de segmentación
+    cv::Mat mask = extractMaskSlice(patient.segmentation, sliceIndex);
+    cv::Mat maskBin;
+    threshold(mask, maskBin, 0, 255, cv::THRESH_BINARY);
 
-    ui->originalSliceLabel->setPixmap(QPixmap::fromImage(QImage(originalU8.data, originalU8.cols, originalU8.rows, originalU8.step, QImage::Format_Grayscale8)).scaled(ui->originalSliceLabel->size(), Qt::KeepAspectRatio));
-    ui->processedSliceLabel->setPixmap(QPixmap::fromImage(QImage(imgSlice.data, imgSlice.cols, imgSlice.rows, imgSlice.step, QImage::Format_Grayscale8)).scaled(ui->processedSliceLabel->size(), Qt::KeepAspectRatio));
-    ui->overlaySliceLabel->setPixmap(QPixmap::fromImage(QImage(overlayOriginal.data, overlayOriginal.cols, overlayOriginal.rows, overlayOriginal.step, QImage::Format_BGR888)).scaled(ui->overlaySliceLabel->size(), Qt::KeepAspectRatio));
+    // 4. PREPROCESAMIENTO (ejemplo con CLAHE solo en la zona del tumor)
+    QString selected = ui->preprocessCombo->currentText();
+    if (selected == "CLAHE") {
+        cv::Ptr<cv::CLAHE> clahe = cv::createCLAHE();
+        clahe->setClipLimit(2.0);
+        cv::Mat claheResult;
+        clahe->apply(processed, claheResult);
+        claheResult.copyTo(processed, maskBin);  // Aplicar solo en el tumor
+    } else if (selected == "Hist. Equal.") {
+        cv::Mat temp;
+        cv::equalizeHist(processed, temp);
+        temp.copyTo(processed, maskBin);  // También solo en el tumor
+    } else if (selected == "Gamma Corr.") {
+        cv::Mat temp;
+        processed.convertTo(temp, CV_32F, 1.0 / 255.0);
+        pow(temp, 1.0 / 1.5, temp);
+        temp *= 255.0;
+        temp.convertTo(temp, CV_8U);
+        temp.copyTo(processed, maskBin);
+    }
+
+    // 5. CHECKBOX FILTERS (también podrías aplicarlos condicionalmente dentro del tumor)
+    if (ui->checkThreshold->isChecked()) {
+        cv::Mat temp;
+        cv::threshold(processed, temp, 80, 255, cv::THRESH_BINARY);
+        temp.copyTo(processed, maskBin);  // Aplicar solo dentro del tumor
+    }
+
+    if (ui->checkLogical->isChecked()) {
+        cv::Mat temp;
+        cv::bitwise_not(processed, temp);
+        temp.copyTo(processed, maskBin);
+    }
+
+    if (ui->checkBlur->isChecked()) {
+        cv::Mat temp;
+        cv::GaussianBlur(processed, temp, cv::Size(5, 5), 1.0);
+        temp.copyTo(processed, maskBin);
+    }
+
+    if (ui->checkMorph->isChecked()) {
+        cv::Mat temp;
+        cv::Mat element = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(3, 3));
+        cv::morphologyEx(processed, temp, cv::MORPH_CLOSE, element);
+        temp.copyTo(processed, maskBin);
+    }
+
+
+    // 6. Crear overlay
+    cv::Mat overlay = overlayMaskOnBase(originalU8, maskBin, 0.4);
+
+    // 7. Mostrar
+    showResult(originalU8, ui->originalSliceLabel);
+    showResult(processed, ui->processedSliceLabel);
+    showResult(overlay, ui->overlaySliceLabel);
 }
 
-void MainWindow::showOriginal(const cv::Mat& img)
+
+
+void MainWindow::procesarLote()
 {
-    if (img.empty()) return;
-    QImage qimg(img.data, img.cols, img.rows, img.step, QImage::Format_Grayscale8);
-    ui->originalLabel->setPixmap(QPixmap::fromImage(qimg).scaled(ui->originalLabel->size(), Qt::KeepAspectRatio));
+    if (!patient.modalities.count("flair")) return;
+
+    int start = ui->startSliceSpinBox->value();
+    int end = ui->endSliceSpinBox->value();
+
+    if (start > end) std::swap(start, end);
+
+    auto flair = patient.modalities.at("flair");
+    auto seg = patient.segmentation;
+
+    QDir().mkpath("output_batch");
+
+    for (int i = start; i <= end; ++i) {
+        auto slice = ExtractSlice(flair, i);
+        cv::Mat img = ITKToMat(slice);
+
+        cv::Mat imgU8;
+        normalize(img, imgU8, 0, 255, NORM_MINMAX);
+        imgU8.convertTo(imgU8, CV_8UC1);
+
+        cv::Mat processed = imgU8.clone();
+
+        QString selected = ui->preprocessCombo->currentText();
+        if (selected == "Hist. Equal.") {
+            cv::equalizeHist(processed, processed);
+        } else if (selected == "CLAHE") {
+            cv::Ptr<cv::CLAHE> clahe = cv::createCLAHE();
+            clahe->setClipLimit(2.0);
+            clahe->apply(processed, processed);
+        } else if (selected == "Gamma Corr.") {
+            cv::Mat temp;
+            processed.convertTo(temp, CV_32F, 1.0 / 255.0);
+            cv::pow(temp, 1.0 / 1.5, temp);
+            temp *= 255.0;
+            temp.convertTo(processed, CV_8U);
+        }
+
+        if (ui->checkThreshold->isChecked())
+            cv::threshold(processed, processed, 80, 255, cv::THRESH_BINARY);
+        if (ui->checkLogical->isChecked())
+            cv::bitwise_not(processed, processed);
+        if (ui->checkBlur->isChecked())
+            cv::GaussianBlur(processed, processed, cv::Size(5, 5), 1.0);
+        if (ui->checkMorph->isChecked()) {
+            cv::Mat element = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(3, 3));
+            cv::morphologyEx(processed, processed, cv::MORPH_CLOSE, element);
+        }
+
+        auto mask = extractMaskSlice(seg, i);
+        cv::threshold(mask, mask, 0, 255, cv::THRESH_BINARY);
+        cv::Mat overlay = overlayMaskOnBase(imgU8, mask, 0.4);
+
+        std::string base = "output_batch/slice_" + std::to_string(i);
+        cv::imwrite(base + "_original.png", imgU8);
+        cv::imwrite(base + "_processed.png", processed);
+        cv::imwrite(base + "_overlay.png", overlay);
+    }
+
+    QMessageBox::information(this, "Lote procesado", "✅ Imágenes procesadas y guardadas en 'output_batch/'");
 }
+
 
 void MainWindow::showResult(const cv::Mat& img, QLabel* label)
 {
@@ -134,10 +209,16 @@ void MainWindow::showResult(const cv::Mat& img, QLabel* label)
 
     cv::Mat display;
     if (img.channels() == 1)
-        cv::cvtColor(img, display, cv::COLOR_GRAY2BGR);
+        cv::cvtColor(img, display, COLOR_GRAY2BGR);
     else
         display = img.clone();
 
     QImage qimg(display.data, display.cols, display.rows, display.step, QImage::Format_BGR888);
     label->setPixmap(QPixmap::fromImage(qimg).scaled(label->size(), Qt::KeepAspectRatio));
 }
+
+void MainWindow::applyFilters() {
+    // Placeholder por si está conectado en el .ui
+    QMessageBox::information(this, "Aplicar", "Este botón no tiene funcionalidad asignada.");
+}
+

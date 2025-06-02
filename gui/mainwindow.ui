@@ -9,78 +9,107 @@
             <string>Procesamiento de Imágenes Médicas</string>
         </property>
         <widget class="QWidget" name="centralwidget">
-            <layout class="QVBoxLayout" name="verticalLayout">
-
-                <!-- Botones de carga y aplicación -->
+            <layout class="QVBoxLayout" name="mainVerticalLayout">
                 <item>
-                    <layout class="QHBoxLayout" name="buttonLayout">
-                        <item><widget class="QPushButton" name="loadButton"><property name="text"><string>Cargar Imagen</string></property></widget></item>
-                        <item><widget class="QPushButton" name="applyButton"><property name="text"><string>Aplicar Filtros</string></property></widget></item>
-                    </layout>
-                </item>
-
-                <!-- Sliders -->
-                <item>
-                    <layout class="QGridLayout" name="slidersLayout">
-                        <item row="0" column="0"><widget class="QLabel" name="meanLabel"><property name="text"><string>Media:</string></property></widget></item>
-                        <item row="0" column="1"><widget class="QSlider" name="meanSlider"><property name="orientation"><enum>Qt::Horizontal</enum></property></widget></item>
-                        <item row="0" column="2"><widget class="QLabel" name="meanValueLabel"><property name="text"><string>0</string></property></widget></item>
-
-                        <item row="1" column="0"><widget class="QLabel" name="stdLabel"><property name="text"><string>Desviación:</string></property></widget></item>
-                        <item row="1" column="1"><widget class="QSlider" name="stdSlider"><property name="orientation"><enum>Qt::Horizontal</enum></property></widget></item>
-                        <item row="1" column="2"><widget class="QLabel" name="stdValueLabel"><property name="text"><string>0</string></property></widget></item>
-
-                        <item row="2" column="0"><widget class="QLabel" name="varLabel"><property name="text"><string>Varianza:</string></property></widget></item>
-                        <item row="2" column="1"><widget class="QSlider" name="varSlider"><property name="orientation"><enum>Qt::Horizontal</enum></property></widget></item>
-                        <item row="2" column="2"><widget class="QLabel" name="varValueLabel"><property name="text"><string>0</string></property></widget></item>
-                    </layout>
-                </item>
-
-                <!-- Procesamiento Slice -->
-                <item>
-                    <layout class="QHBoxLayout" name="sliceSelectionLayout">
-                        <item><widget class="QLabel" name="sliceLabel"><property name="text"><string>Slice Index:</string></property></widget></item>
-                        <item><widget class="QSpinBox" name="sliceSpinBox"><property name="minimum"><number>0</number></property><property name="maximum"><number>100</number></property><property name="value"><number>50</number></property></widget></item>
+                    <layout class="QHBoxLayout" name="topButtonLayout">
+                        <item><widget class="QPushButton" name="loadButton"><property name="text"><string>Cargar Estudio</string></property></widget></item>
                         <item><widget class="QPushButton" name="processButton"><property name="text"><string>Procesar Slice</string></property></widget></item>
+                        <item><widget class="QPushButton" name="batchButton"><property name="text"><string>Procesar por Lote</string></property></widget></item>
                     </layout>
                 </item>
 
-                <!-- Imágenes principales -->
                 <item>
-                    <layout class="QHBoxLayout" name="imagesLayout">
-                        <item><widget class="QLabel" name="originalLabel"><property name="text"><string>FLAIR</string></property><property name="alignment"><set>Qt::AlignCenter</set></property></widget></item>
-                        <item><widget class="QLabel" name="maskLabel"><property name="text"><string>Máscara</string></property><property name="alignment"><set>Qt::AlignCenter</set></property></widget></item>
-                        <item><widget class="QLabel" name="overlayLabel"><property name="text"><string>Superposición</string></property><property name="alignment"><set>Qt::AlignCenter</set></property></widget></item>
+                    <layout class="QHBoxLayout" name="horizontalMainLayout">
+                        <item>
+                            <widget class="QGroupBox" name="filterGroup">
+                                <property name="title"><string>Filtros</string></property>
+                                <property name="maximumWidth"><number>200</number></property>
+                                <layout class="QVBoxLayout" name="filterLayout">
+                                    <item><widget class="QCheckBox" name="checkThreshold"><property name="text"><string>Thresholding</string></property></widget></item>
+                                    <item><widget class="QCheckBox" name="checkLogical"><property name="text"><string>Operación NOT</string></property></widget></item>
+                                    <item><widget class="QCheckBox" name="checkBlur"><property name="text"><string>Suavizado</string></property></widget></item>
+                                    <item><widget class="QCheckBox" name="checkMorph"><property name="text"><string>Morfología</string></property></widget></item>
+                                    <item>
+                                        <layout class="QGridLayout" name="sliderGrid">
+                                            <item row="0" column="0"><widget class="QLabel" name="meanLabel"><property name="text"><string>Media:</string></property></widget></item>
+                                            <item row="0" column="1"><widget class="QSlider" name="meanSlider"><property name="orientation"><enum>Qt::Horizontal</enum></property></widget></item>
+                                            <item row="0" column="2"><widget class="QLabel" name="meanValueLabel"><property name="text"><string>0</string></property></widget></item>
+                                            <item row="1" column="0"><widget class="QLabel" name="stdLabel"><property name="text"><string>Desviación:</string></property></widget></item>
+                                            <item row="1" column="1"><widget class="QSlider" name="stdSlider"><property name="orientation"><enum>Qt::Horizontal</enum></property></widget></item>
+                                            <item row="1" column="2"><widget class="QLabel" name="stdValueLabel"><property name="text"><string>0</string></property></widget></item>
+                                            <item row="2" column="0"><widget class="QLabel" name="varLabel"><property name="text"><string>Varianza:</string></property></widget></item>
+                                            <item row="2" column="1"><widget class="QSlider" name="varSlider"><property name="orientation"><enum>Qt::Horizontal</enum></property></widget></item>
+                                            <item row="2" column="2"><widget class="QLabel" name="varValueLabel"><property name="text"><string>0</string></property></widget></item>
+                                        </layout>
+                                    </item>
+                                </layout>
+                            </widget>
+                        </item>
+
+                        <item>
+                            <layout class="QVBoxLayout" name="rightPanelLayout">
+                                <item>
+                                    <layout class="QHBoxLayout" name="sliceConfigLayout">
+                                        <item><widget class="QLabel" name="sliceLabel"><property name="text"><string>Slice:</string></property></widget></item>
+                                        <item><widget class="QSpinBox" name="sliceSpinBox"><property name="minimum"><number>0</number></property><property name="maximum"><number>155</number></property></widget></item>
+                                        <item><widget class="QComboBox" name="preprocessCombo">
+                                            <item><property name="text"><string>Hist. Equal.</string></property></item>
+                                            <item><property name="text"><string>CLAHE</string></property></item>
+                                            <item><property name="text"><string>Gamma Corr.</string></property></item>
+                                        </widget></item>
+                                    </layout>
+                                </item>
+
+                                <item>
+                                    <layout class="QHBoxLayout" name="rangeLayout">
+                                        <item><widget class="QLabel" name="rangeLabel"><property name="text"><string>Rango:</string></property></widget></item>
+                                        <item><widget class="QSpinBox" name="startSliceSpinBox"/></item>
+                                        <item><widget class="QSpinBox" name="endSliceSpinBox"/></item>
+                                    </layout>
+                                </item>
+
+                                <item>
+                                    <layout class="QHBoxLayout" name="imageDisplayLayout">
+                                        <item>
+                                            <widget class="QLabel" name="originalSliceLabel">
+                                                <property name="text"><string>Original</string></property>
+                                                <property name="sizePolicy">
+                                                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding"/>
+                                                </property>
+                                                <property name="alignment">
+                                                    <set>Qt::AlignCenter</set>
+                                                </property>
+                                            </widget>
+                                        </item>
+                                        <item>
+                                            <widget class="QLabel" name="processedSliceLabel">
+                                                <property name="text"><string>Procesado</string></property>
+                                                <property name="sizePolicy">
+                                                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding"/>
+                                                </property>
+                                                <property name="alignment">
+                                                    <set>Qt::AlignCenter</set>
+                                                </property>
+                                            </widget>
+                                        </item>
+                                        <item>
+                                            <widget class="QLabel" name="overlaySliceLabel">
+                                                <property name="text"><string>Overlay</string></property>
+                                                <property name="sizePolicy">
+                                                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding"/>
+                                                </property>
+                                                <property name="alignment">
+                                                    <set>Qt::AlignCenter</set>
+                                                </property>
+                                            </widget>
+                                        </item>
+                                    </layout>
+                                </item>
+
+                            </layout>
+                        </item>
                     </layout>
                 </item>
-
-                <!-- Resultados de procesamiento -->
-                <item>
-                    <layout class="QGridLayout" name="resultGrid">
-                        <item row="0" column="0"><widget class="QLabel" name="eqHistLabel"><property name="text"><string>Equalización Hist</string></property></widget></item>
-                        <item row="0" column="1"><widget class="QLabel" name="claheLabel"><property name="text"><string>CLAHE</string></property></widget></item>
-                        <item row="0" column="2"><widget class="QLabel" name="gammaLabel"><property name="text"><string>Gamma</string></property></widget></item>
-
-                        <item row="1" column="0"><widget class="QLabel" name="noisyGaussLabel"><property name="text"><string>Ruido Gauss</string></property></widget></item>
-                        <item row="1" column="1"><widget class="QLabel" name="noisySpeckleLabel"><property name="text"><string>Ruido Speckle</string></property></widget></item>
-
-                        <item row="2" column="0"><widget class="QLabel" name="blurLabel"><property name="text"><string>Desenfoque</string></property></widget></item>
-                        <item row="2" column="1"><widget class="QLabel" name="gaussianLabel"><property name="text"><string>Gaussiano</string></property></widget></item>
-                        <item row="2" column="2"><widget class="QLabel" name="medianLabel"><property name="text"><string>Mediana</string></property></widget></item>
-
-                        <item row="3" column="0"><widget class="QLabel" name="cannyLabel"><property name="text"><string>Bordes Canny</string></property></widget></item>
-                    </layout>
-                </item>
-
-                <!-- Resultados de slice -->
-                <item>
-                    <layout class="QHBoxLayout" name="sliceImagesLayout">
-                        <item><widget class="QLabel" name="originalSliceLabel"><property name="text"><string>Slice Original</string></property><property name="alignment"><set>Qt::AlignCenter</set></property></widget></item>
-                        <item><widget class="QLabel" name="processedSliceLabel"><property name="text"><string>Slice Procesado</string></property><property name="alignment"><set>Qt::AlignCenter</set></property></widget></item>
-                        <item><widget class="QLabel" name="overlaySliceLabel"><property name="text"><string>Overlay Slice</string></property><property name="alignment"><set>Qt::AlignCenter</set></property></widget></item>
-                    </layout>
-                </item>
-
             </layout>
         </widget>
         <widget class="QMenuBar" name="menubar"/>

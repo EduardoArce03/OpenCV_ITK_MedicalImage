@@ -23,6 +23,7 @@ private slots:
     void loadImage();
     void applyFilters();
     void procesarSlice();  // Nueva función para procesar slice individual
+    void procesarLote();
 
 private:
     void showOriginal(const cv::Mat& img);
