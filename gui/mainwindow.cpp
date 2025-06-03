@@ -129,7 +129,7 @@ void MainWindow::procesarSlice()
 
 
     // 6. Crear overlay
-    cv::Mat overlay = overlayMaskOnBase(originalU8, maskBin, 0.4);
+    cv::Mat overlay = overlayMaskOnBase(processed, maskBin, 0.4);
 
     // 7. Mostrar
     showResult(originalU8, ui->originalSliceLabel);
@@ -240,6 +240,33 @@ void MainWindow::procesarLote()
     }
 
     QMessageBox::information(this, "Lote procesado", "✅ Imágenes procesadas y guardadas en 'output_batch/'");
+    // Crear video
+    cv::VideoWriter writer;
+    int codec = cv::VideoWriter::fourcc('M', 'J', 'P', 'G'); // o 'X','V','I','D'
+    double fps = 5.0; // velocidad del video
+    cv::Size frameSize;
+
+    // Reabrir imágenes guardadas para crear el video
+    for (int i = start; i <= end; ++i) {
+        std::string filename = "output_batch/slice_" + std::to_string(i) + "_overlay.png";
+        cv::Mat frame = cv::imread(filename);
+
+        if (frame.empty()) continue;
+
+        if (!writer.isOpened()) {
+            frameSize = frame.size();
+            writer.open("output_batch/video_resultado.avi", codec, fps, frameSize, true);
+            if (!writer.isOpened()) {
+                QMessageBox::warning(this, "Error", "No se pudo crear el video.");
+                return;
+            }
+        }
+
+        writer.write(frame);
+    }
+
+    writer.release();
+
 }
 
 
