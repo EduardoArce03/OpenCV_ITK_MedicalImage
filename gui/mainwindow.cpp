@@ -349,7 +349,7 @@ void MainWindow::guardarEstadisticas(const QString& filename, int sliceIndex, do
     if (file.open(QIODevice::Append | QIODevice::Text)) {
         QTextStream out(&file);
         if (!existe) {
-            out << "Slice,Media,Mínimo,Maximo,Área\n";  // encabezado
+            out << "Slice,Media,Minimo,Maximo,Area\n";  // encabezado
         }
         out << sliceIndex << "," << mean << "," << minVal << "," << maxVal << "," << area << "\n";
         file.close();
