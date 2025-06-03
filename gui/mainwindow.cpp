@@ -10,6 +10,8 @@
 #include "brats_loader.h"
 #include "utils.h"
 #include "nii_processing.h"
+#include <QTextStream>
+#include <QDebug>
 
 using namespace cv;
 using namespace std;
@@ -79,6 +81,31 @@ void MainWindow::procesarSlice()
     cv::Mat mask = extractMaskSlice(patient.segmentation, sliceIndex);
     cv::Mat maskBin;
     threshold(mask, maskBin, 0, 255, cv::THRESH_BINARY);
+
+    cv::Mat valuesInTumor;
+    originalU8.copyTo(valuesInTumor, maskBin);
+
+    std::vector<uchar> tumorPixels;
+    for (int y = 0; y < valuesInTumor.rows; ++y) {
+        for (int x = 0; x < valuesInTumor.cols; ++x) {
+            uchar val = valuesInTumor.at<uchar>(y, x);
+            if (val > 0) tumorPixels.push_back(val);
+        }
+    }
+
+    double sum = 0;
+    uchar minVal = 255, maxVal = 0;
+    for (uchar val : tumorPixels) {
+        sum += val;
+        if (val < minVal) minVal = val;
+        if (val > maxVal) maxVal = val;
+    }
+    double mean = tumorPixels.empty() ? 0 : sum / tumorPixels.size();
+    int area = tumorPixels.size();
+
+    // Guardar en archivo CSV
+    guardarEstadisticas("output_batch/estadisticas.csv", sliceIndex, mean, minVal, maxVal, area);
+
 
     // 4. PREPROCESAMIENTO (ejemplo con CLAHE solo en la zona del tumor)
     QString selected = ui->preprocessCombo->currentText();
@@ -237,7 +264,33 @@ void MainWindow::procesarLote()
         imwrite(base + "_original.png", imgU8);
         imwrite(base + "_processed.png", processed);
         imwrite(base + "_overlay.png", overlay);
+
+        // === CÁLCULO DE ESTADÍSTICAS DEL TUMOR ===
+        cv::Mat valuesInTumor;
+        imgU8.copyTo(valuesInTumor, maskBin); // Solo zona del tumor
+
+        std::vector<uchar> tumorPixels;
+        for (int y = 0; y < valuesInTumor.rows; ++y) {
+            for (int x = 0; x < valuesInTumor.cols; ++x) {
+                uchar val = valuesInTumor.at<uchar>(y, x);
+                if (val > 0) tumorPixels.push_back(val);
+            }
+        }
+
+        double sum = 0;
+        uchar minVal = 255, maxVal = 0;
+        for (uchar val : tumorPixels) {
+            sum += val;
+            if (val < minVal) minVal = val;
+            if (val > maxVal) maxVal = val;
+        }
+        double mean = tumorPixels.empty() ? 0 : sum / tumorPixels.size();
+        int area = tumorPixels.size();
+
+        // Guardar estadísticas por slice
+        guardarEstadisticas("output_batch/estadisticasLote.csv", i, mean, minVal, maxVal, area);
     }
+
 
     QMessageBox::information(this, "Lote procesado", "✅ Imágenes procesadas y guardadas en 'output_batch/'");
     // Crear video
@@ -289,4 +342,18 @@ void MainWindow::applyFilters() {
     // Placeholder por si está conectado en el .ui
     QMessageBox::information(this, "Aplicar", "Este botón no tiene funcionalidad asignada.");
 }
+
+void MainWindow::guardarEstadisticas(const QString& filename, int sliceIndex, double mean, int minVal, int maxVal, int area) {
+    QFile file(filename);
+    bool existe = file.exists();
+    if (file.open(QIODevice::Append | QIODevice::Text)) {
+        QTextStream out(&file);
+        if (!existe) {
+            out << "Slice,Media,Mínimo,Maximo,Área\n";  // encabezado
+        }
+        out << sliceIndex << "," << mean << "," << minVal << "," << maxVal << "," << area << "\n";
+        file.close();
+    }
+}
+
 
