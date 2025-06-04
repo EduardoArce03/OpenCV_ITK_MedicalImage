@@ -20,7 +20,8 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
+    ui->startSliceSpinBox->setMaximum(300);
+    ui->endSliceSpinBox->setMaximum(300);
     connect(ui->loadButton, &QPushButton::clicked, this, &MainWindow::loadImage);
     connect(ui->processButton, &QPushButton::clicked, this, &MainWindow::procesarSlice);
     connect(ui->batchButton, &QPushButton::clicked, this, &MainWindow::procesarLote);
@@ -93,6 +94,7 @@ void MainWindow::procesarSlice()
         }
     }
 
+
     double sum = 0;
     uchar minVal = 255, maxVal = 0;
     for (uchar val : tumorPixels) {
@@ -151,6 +153,30 @@ void MainWindow::procesarSlice()
         cv::Mat temp;
         cv::Mat element = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(3, 3));
         cv::morphologyEx(processed, temp, cv::MORPH_CLOSE, element);
+        temp.copyTo(processed, maskBin);
+    }
+
+    if (ui->checkEdges->isChecked()) {
+        cv::Mat temp;
+        cv::Canny(processed, temp, 100, 200);  // valores típicos, puedes ajustar
+        temp.copyTo(processed, maskBin);
+    }
+
+    if (ui->checkContours->isChecked()) {
+        std::vector<std::vector<cv::Point>> contours;
+        cv::findContours(maskBin, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
+        cv::drawContours(processed, contours, -1, cv::Scalar(255), 1);  // Dibuja en blanco sobre el tumor
+    }
+
+    if (ui->checkAnd->isChecked()) {
+        cv::Mat temp = processed.clone();
+        cv::bitwise_and(processed, 128, temp);  // con una constante
+        temp.copyTo(processed, maskBin);
+    }
+
+    if (ui->checkOr->isChecked()) {
+        cv::Mat temp = processed.clone();
+        cv::bitwise_or(processed, 128, temp);  // con una constante
         temp.copyTo(processed, maskBin);
     }
 
@@ -250,7 +276,29 @@ void MainWindow::procesarLote()
             temp.copyTo(processed, maskBin);
         }
 
+        if (ui->checkEdges->isChecked()) {
+            cv::Mat temp;
+            cv::Canny(processed, temp, 100, 200);  // valores típicos
+            temp.copyTo(processed, maskBin);
+        }
 
+        if (ui->checkContours->isChecked()) {
+            std::vector<std::vector<cv::Point>> contours;
+            cv::findContours(maskBin, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
+            cv::drawContours(processed, contours, -1, cv::Scalar(255), 1);  // blanco
+        }
+
+        if (ui->checkAnd->isChecked()) {
+            cv::Mat temp = processed.clone();
+            bitwise_and(processed, 128, temp);  // AND con constante
+            temp.copyTo(processed, maskBin);
+        }
+
+        if (ui->checkOr->isChecked()) {
+            cv::Mat temp = processed.clone();
+            bitwise_or(processed, 128, temp);  // OR con constante
+            temp.copyTo(processed, maskBin);
+        }
         // === CREAR OVERLAY TIPO ANÁLISIS MÉDICO (rojo translúcido) ===
         cv::Mat overlay;
         cv::Mat colorBase;
@@ -276,6 +324,16 @@ void MainWindow::procesarLote()
                 if (val > 0) tumorPixels.push_back(val);
             }
         }
+        // Guardar intensidades individuales en CSV
+        QFile file("output_batch/intensidades_puro.csv");
+        if (file.open(QIODevice::Append | QIODevice::Text)) {
+            QTextStream out(&file);
+            for (uchar val : tumorPixels) {
+                out << QString::number(val) << "\n";
+            }
+            file.close();
+        }
+
 
         double sum = 0;
         uchar minVal = 255, maxVal = 0;
@@ -314,12 +372,9 @@ void MainWindow::procesarLote()
                 return;
             }
         }
-
         writer.write(frame);
     }
-
-    writer.release();
-
+    system("python3 generar_estadisticas.py");
 }
 
 

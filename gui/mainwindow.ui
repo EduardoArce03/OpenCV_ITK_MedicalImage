@@ -30,6 +30,26 @@
                                     <item><widget class="QCheckBox" name="checkBlur"><property name="text"><string>Suavizado</string></property></widget></item>
                                     <item><widget class="QCheckBox" name="checkMorph"><property name="text"><string>Morfología</string></property></widget></item>
                                     <item>
+                                        <widget class="QCheckBox" name="checkEdges">
+                                            <property name="text"><string>Detección de Bordes</string></property>
+                                        </widget>
+                                    </item>
+                                    <item>
+                                        <widget class="QCheckBox" name="checkContours">
+                                            <property name="text"><string>Detección de Contornos</string></property>
+                                        </widget>
+                                    </item>
+                                    <item>
+                                        <widget class="QCheckBox" name="checkAnd">
+                                            <property name="text"><string>And Logico</string></property>
+                                        </widget>
+                                    </item>
+                                    <item>
+                                        <widget class="QCheckBox" name="checkOr">
+                                            <property name="text"><string>OR Logico</string></property>
+                                        </widget>
+                                    </item>
+                                    <item>
                                         <layout class="QGridLayout" name="sliderGrid">
                                             <item row="0" column="0"><widget class="QLabel" name="meanLabel"><property name="text"><string>Media:</string></property></widget></item>
                                             <item row="0" column="1"><widget class="QSlider" name="meanSlider"><property name="orientation"><enum>Qt::Horizontal</enum></property></widget></item>
