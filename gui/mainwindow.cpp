@@ -209,30 +209,26 @@ void MainWindow::procesarLote()
         auto slice = ExtractSlice(flair, i);
         cv::Mat img = ITKToMat(slice);
 
-        // Convertir a 8 bits
         cv::Mat imgU8;
         normalize(img, imgU8, 0, 255, NORM_MINMAX);
         imgU8.convertTo(imgU8, CV_8UC1);
 
-        // Inicializar copia para procesar
         cv::Mat processed = imgU8.clone();
 
-        // Obtener la máscara binaria de la segmentación
         cv::Mat mask = extractMaskSlice(seg, i);
         cv::Mat maskBin;
         threshold(mask, maskBin, 0, 255, cv::THRESH_BINARY);
 
-        // === PREPROCESAMIENTO SOLO EN TUMOR ===
         QString selected = ui->preprocessCombo->currentText();
-        if (selected == "Hist. Equal.") {
-            cv::Mat temp;
-            equalizeHist(processed, temp);
-            temp.copyTo(processed, maskBin);
-        } else if (selected == "CLAHE") {
-            cv::Ptr<cv::CLAHE> clahe = createCLAHE();
+        if (selected == "CLAHE") {
+            cv::Ptr<cv::CLAHE> clahe = cv::createCLAHE();
             clahe->setClipLimit(2.0);
             cv::Mat temp;
             clahe->apply(processed, temp);
+            temp.copyTo(processed, maskBin);
+        } else if (selected == "Hist. Equal.") {
+            cv::Mat temp;
+            cv::equalizeHist(processed, temp);
             temp.copyTo(processed, maskBin);
         } else if (selected == "Gamma Corr.") {
             cv::Mat temp;
@@ -249,8 +245,6 @@ void MainWindow::procesarLote()
             temp.copyTo(processed, maskBin);
         }
 
-
-        // === FILTROS SOLO EN TUMOR ===
         if (ui->checkThreshold->isChecked()) {
             cv::Mat temp;
             threshold(processed, temp, 80, 255, THRESH_BINARY);
@@ -265,103 +259,85 @@ void MainWindow::procesarLote()
 
         if (ui->checkBlur->isChecked()) {
             cv::Mat temp;
-            cv::GaussianBlur(processed, temp, cv::Size(5, 5), 1.0);
+            GaussianBlur(processed, temp, cv::Size(5, 5), 1.0);
             temp.copyTo(processed, maskBin);
         }
 
         if (ui->checkMorph->isChecked()) {
             cv::Mat temp;
-            cv::Mat element = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(3, 3));
+            cv::Mat element = getStructuringElement(MORPH_RECT, cv::Size(3, 3));
             morphologyEx(processed, temp, MORPH_CLOSE, element);
             temp.copyTo(processed, maskBin);
         }
 
         if (ui->checkEdges->isChecked()) {
             cv::Mat temp;
-            cv::Canny(processed, temp, 100, 200);  // valores típicos
+            Canny(processed, temp, 100, 200);
             temp.copyTo(processed, maskBin);
         }
 
         if (ui->checkContours->isChecked()) {
             std::vector<std::vector<cv::Point>> contours;
-            cv::findContours(maskBin, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
-            cv::drawContours(processed, contours, -1, cv::Scalar(255), 1);  // blanco
+            findContours(maskBin, contours, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE);
+            drawContours(processed, contours, -1, Scalar(255), 1);
         }
 
         if (ui->checkAnd->isChecked()) {
             cv::Mat temp = processed.clone();
-            bitwise_and(processed, 128, temp);  // AND con constante
+            bitwise_and(processed, 128, temp);
             temp.copyTo(processed, maskBin);
         }
 
         if (ui->checkOr->isChecked()) {
             cv::Mat temp = processed.clone();
-            bitwise_or(processed, 128, temp);  // OR con constante
+            bitwise_or(processed, 128, temp);
             temp.copyTo(processed, maskBin);
         }
-        // === CREAR OVERLAY TIPO ANÁLISIS MÉDICO (rojo translúcido) ===
-        cv::Mat overlay;
-        cv::Mat colorBase;
-        cv::cvtColor(imgU8, colorBase, cv::COLOR_GRAY2BGR);
-        overlay = colorBase.clone();
-        overlay.setTo(cv::Scalar(0, 0, 255), maskBin);  // rojo en BGR
-        cv::addWeighted(overlay, 0.4, colorBase, 0.6, 0.0, overlay);
 
-        // === GUARDAR ===
+        // === Overlay y Guardado ===
+        cv::Mat overlay = overlayMaskOnBase(processed, maskBin, 0.4);
+
         std::string base = "output_batch/slice_" + std::to_string(i);
         imwrite(base + "_original.png", imgU8);
         imwrite(base + "_processed.png", processed);
         imwrite(base + "_overlay.png", overlay);
 
-        // === CÁLCULO DE ESTADÍSTICAS DEL TUMOR ===
+        // === Estadísticas ===
         cv::Mat valuesInTumor;
-        imgU8.copyTo(valuesInTumor, maskBin); // Solo zona del tumor
-
+        imgU8.copyTo(valuesInTumor, maskBin);
         std::vector<uchar> tumorPixels;
-        for (int y = 0; y < valuesInTumor.rows; ++y) {
-            for (int x = 0; x < valuesInTumor.cols; ++x) {
-                uchar val = valuesInTumor.at<uchar>(y, x);
-                if (val > 0) tumorPixels.push_back(val);
-            }
-        }
-        // Guardar intensidades individuales en CSV
+        for (int y = 0; y < valuesInTumor.rows; ++y)
+            for (int x = 0; x < valuesInTumor.cols; ++x)
+                if (uchar val = valuesInTumor.at<uchar>(y, x); val > 0)
+                    tumorPixels.push_back(val);
+
         QFile file("output_batch/intensidades_puro.csv");
         if (file.open(QIODevice::Append | QIODevice::Text)) {
             QTextStream out(&file);
-            for (uchar val : tumorPixels) {
-                out << QString::number(val) << "\n";
-            }
+            for (uchar val : tumorPixels) out << QString::number(val) << "\n";
             file.close();
         }
 
-
-        double sum = 0;
-        uchar minVal = 255, maxVal = 0;
-        for (uchar val : tumorPixels) {
-            sum += val;
-            if (val < minVal) minVal = val;
-            if (val > maxVal) maxVal = val;
-        }
+        double sum = std::accumulate(tumorPixels.begin(), tumorPixels.end(), 0.0);
+        uchar minVal = tumorPixels.empty() ? 0 : *std::min_element(tumorPixels.begin(), tumorPixels.end());
+        uchar maxVal = tumorPixels.empty() ? 0 : *std::max_element(tumorPixels.begin(), tumorPixels.end());
         double mean = tumorPixels.empty() ? 0 : sum / tumorPixels.size();
         int area = tumorPixels.size();
 
-        // Guardar estadísticas por slice
         guardarEstadisticas("output_batch/estadisticasLote.csv", i, mean, minVal, maxVal, area);
     }
 
-
     QMessageBox::information(this, "Lote procesado", "✅ Imágenes procesadas y guardadas en 'output_batch/'");
-    // Crear video
+
+    // === Crear Video ===
     cv::VideoWriter writer;
-    int codec = cv::VideoWriter::fourcc('M', 'J', 'P', 'G'); // o 'X','V','I','D'
-    double fps = 5.0; // velocidad del video
+    int codec = cv::VideoWriter::fourcc('M', 'J', 'P', 'G');
+    double fps = 5.0;
     cv::Size frameSize;
 
-    // Reabrir imágenes guardadas para crear el video
     for (int i = start; i <= end; ++i) {
         std::string filename = "output_batch/slice_" + std::to_string(i) + "_overlay.png";
         cv::Mat frame = cv::imread(filename);
-
         if (frame.empty()) continue;
 
         if (!writer.isOpened()) {
@@ -374,8 +350,10 @@ void MainWindow::procesarLote()
         }
         writer.write(frame);
     }
+
     system("python3 generar_estadisticas.py");
 }
+
 
 
 
