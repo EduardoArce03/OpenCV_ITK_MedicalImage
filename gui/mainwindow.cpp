@@ -50,6 +50,24 @@ void MainWindow::loadImage()
         }
     }
 }
+#include <sys/resource.h>
+
+long getMemoryUsageKB() {
+    FILE* file = fopen("/proc/self/status", "r");
+    if (!file) return 0;
+
+    char line[128];
+    while (fgets(line, sizeof(line), file)) {
+        if (strncmp(line, "VmRSS:", 6) == 0) {
+            long mem = 0;
+            sscanf(line + 6, "%ld", &mem); // Lee el número directamente
+            fclose(file);
+            return mem; // ya está en KB
+        }
+    }
+    fclose(file);
+    return 0;
+}
 
 void MainWindow::procesarSlice()
 {
@@ -94,9 +112,16 @@ void MainWindow::procesarSlice()
     }
     double mean = tumorPixels.empty() ? 0 : sum / tumorPixels.size();
     int area = tumorPixels.size();
+    double mediana = 0;
+    if (!tumorPixels.empty()) {
+        std::nth_element(tumorPixels.begin(), tumorPixels.begin() + tumorPixels.size() / 2, tumorPixels.end());
+        mediana = tumorPixels[tumorPixels.size() / 2];
+    }
+
 
     // Guardar en archivo CSV
-    guardarEstadisticas("output_batch/estadisticas.csv", sliceIndex, mean, minVal, maxVal, area);
+    guardarEstadisticas("output_batch/estadisticas.csv", sliceIndex, mean, minVal, maxVal, area, mediana);
+
 
 
     // 4. PREPROCESAMIENTO (ejemplo con CLAHE solo en la zona del tumor)
@@ -194,7 +219,15 @@ void MainWindow::procesarLote()
     auto seg = patient.segmentation;
 
     QDir().mkpath("output_batch");
+    // Crear encabezado del log de memoria
+    QFile memLog("output_batch/uso_memoria.csv");
+    if (memLog.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QTextStream out(&memLog);
+        out << "slice,mem_antes,mem_despues,mem_consumida\n";
+        memLog.close();
+    }
 
+    long memAntes = getMemoryUsageKB();  // Inicial
     for (int i = start; i <= end; ++i) {
         auto slice = ExtractSlice(flair, i);
         cv::Mat img = ITKToMat(slice);
@@ -313,10 +346,30 @@ void MainWindow::procesarLote()
         uchar maxVal = tumorPixels.empty() ? 0 : *std::max_element(tumorPixels.begin(), tumorPixels.end());
         double mean = tumorPixels.empty() ? 0 : sum / tumorPixels.size();
         int area = tumorPixels.size();
+        double mediana = 0;
+        if (!tumorPixels.empty()) {
+            std::nth_element(tumorPixels.begin(), tumorPixels.begin() + tumorPixels.size() / 2, tumorPixels.end());
+            mediana = tumorPixels[tumorPixels.size() / 2];
+        }
 
-        guardarEstadisticas("output_batch/estadisticasLote.csv", i, mean, minVal, maxVal, area);
+        guardarEstadisticasLote("output_batch/estadisticasLote.csv", i, mean, minVal, maxVal, area, mediana);
+
+        // === Medición de memoria ===
+        long memDespues = getMemoryUsageKB();
+        long memConsumida = memDespues - memAntes;
+
+        QFile memLogAppend("output_batch/uso_memoria.csv");
+        if (memLogAppend.open(QIODevice::Append | QIODevice::Text)) {
+            QTextStream out(&memLogAppend);
+            out << QString::number(i) << ","
+                << QString::number(memAntes) << ","
+                << QString::number(memDespues) << ","
+                << QString::number(memConsumida) << "\n";
+            memLogAppend.close();
+        }
+
+        memAntes = getMemoryUsageKB();  // Para siguiente slice
     }
-
     QMessageBox::information(this, "Lote procesado", "✅ Imágenes procesadas y guardadas en 'output_batch/'");
 
     // === Crear Video ===
@@ -366,17 +419,34 @@ void MainWindow::applyFilters() {
     QMessageBox::information(this, "Aplicar", "Este botón no tiene funcionalidad asignada.");
 }
 
-void MainWindow::guardarEstadisticas(const QString& filename, int sliceIndex, double mean, int minVal, int maxVal, int area) {
+void MainWindow::guardarEstadisticas(const QString& filename, int sliceIndex, double mean, int minVal, int maxVal, int area, double mediana) {
     QFile file(filename);
     bool existe = file.exists();
     if (file.open(QIODevice::Append | QIODevice::Text)) {
         QTextStream out(&file);
         if (!existe) {
-            out << "Slice,Media,Minimo,Maximo,Area\n";  // encabezado
+            out << "Slice,Media,Mediana,Minimo,Maximo,Area\n";  // encabezado
         }
-        out << sliceIndex << "," << mean << "," << minVal << "," << maxVal << "," << area << "\n";
+        out << sliceIndex << "," << mean << "," << mediana << "," << minVal << "," << maxVal << "," << area << "\n";
         file.close();
     }
 }
+
+
+void MainWindow::guardarEstadisticasLote(const QString& filename, int sliceIndex, double mean, int minVal, int maxVal, int area, double mediana) {
+    QFile file(filename);
+    bool existe = file.exists();
+    if (file.open(QIODevice::Append | QIODevice::Text)) {
+        QTextStream out(&file);
+        if (!existe) {
+            out << "Slice,Media,Mediana,Minimo,Maximo,Area\n";  // encabezado
+        }
+        out << sliceIndex << "," << mean << "," << mediana << "," << minVal << "," << maxVal << "," << area << "\n";
+        file.close();
+    }
+}
+
+
+
 
 

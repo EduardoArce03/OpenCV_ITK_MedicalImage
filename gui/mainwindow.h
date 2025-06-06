@@ -23,9 +23,15 @@ private slots:
     void loadImage();
     void applyFilters();
 
-    void guardarEstadisticas(const QString &filename, int sliceIndex, double mean, int minVal, int maxVal, int area);
+    void guardarEstadisticas(const QString &filename, int sliceIndex, double mean, int minVal, int maxVal, int area,
+                             double mediana);
+
+
+    void guardarEstadisticasLote(const QString &filename, int sliceIndex, double mean, int minVal, int maxVal, int area,
+                                 double mediana);
 
     void procesarSlice();  // Nueva función para procesar slice individual
+
     void procesarLote();
 
 private:
