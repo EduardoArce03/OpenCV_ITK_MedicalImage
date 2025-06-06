@@ -49,19 +49,7 @@
                                             <property name="text"><string>OR Logico</string></property>
                                         </widget>
                                     </item>
-                                    <item>
-                                        <layout class="QGridLayout" name="sliderGrid">
-                                            <item row="0" column="0"><widget class="QLabel" name="meanLabel"><property name="text"><string>Media:</string></property></widget></item>
-                                            <item row="0" column="1"><widget class="QSlider" name="meanSlider"><property name="orientation"><enum>Qt::Horizontal</enum></property></widget></item>
-                                            <item row="0" column="2"><widget class="QLabel" name="meanValueLabel"><property name="text"><string>0</string></property></widget></item>
-                                            <item row="1" column="0"><widget class="QLabel" name="stdLabel"><property name="text"><string>Desviación:</string></property></widget></item>
-                                            <item row="1" column="1"><widget class="QSlider" name="stdSlider"><property name="orientation"><enum>Qt::Horizontal</enum></property></widget></item>
-                                            <item row="1" column="2"><widget class="QLabel" name="stdValueLabel"><property name="text"><string>0</string></property></widget></item>
-                                            <item row="2" column="0"><widget class="QLabel" name="varLabel"><property name="text"><string>Varianza:</string></property></widget></item>
-                                            <item row="2" column="1"><widget class="QSlider" name="varSlider"><property name="orientation"><enum>Qt::Horizontal</enum></property></widget></item>
-                                            <item row="2" column="2"><widget class="QLabel" name="varValueLabel"><property name="text"><string>0</string></property></widget></item>
-                                        </layout>
-                                    </item>
+
                                 </layout>
                             </widget>
                         </item>

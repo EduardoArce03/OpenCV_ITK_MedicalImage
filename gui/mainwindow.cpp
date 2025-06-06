@@ -25,16 +25,6 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->loadButton, &QPushButton::clicked, this, &MainWindow::loadImage);
     connect(ui->processButton, &QPushButton::clicked, this, &MainWindow::procesarSlice);
     connect(ui->batchButton, &QPushButton::clicked, this, &MainWindow::procesarLote);
-
-    connect(ui->meanSlider, &QSlider::valueChanged, this, [this](int value) {
-        ui->meanValueLabel->setText(QString::number(value));
-    });
-    connect(ui->stdSlider, &QSlider::valueChanged, this, [this](int value) {
-        ui->stdValueLabel->setText(QString::number(value));
-    });
-    connect(ui->varSlider, &QSlider::valueChanged, this, [this](int value) {
-        ui->varValueLabel->setText(QString::number(value));
-    });
 }
 
 MainWindow::~MainWindow()
